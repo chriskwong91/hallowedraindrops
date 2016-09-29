@@ -27,11 +27,11 @@ export default class Editor extends React.Component {
 	render () {
 		return (
 		  <div>
-		    <div id="editor"></div>
 		    <button>Hello World </button>
+		    <div id="editor"></div>
 		  </div>
 		)
 	}
 }
 
-// module.exports = Editor; // 
+// module.exports = Editor; //

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import RTC from './rtc.jsx';
 
 var Promise = require('bluebird');
 
@@ -10,13 +11,19 @@ class App extends React.Component {
   	this.state = {
   	  text: 'hello world', // text is going to be the code the user inputs
   	};
+    this.socket = this.setupSocket();
   }
 
   componentDidMount() {
 
     this.editor = this.editorSetup();
-    this.socket = this.setupSocket();
+    console.log('socket in index', this.socket);
     this.editor.setValue(this.state.text);
+
+    var text = this.editor.getValue();
+    this.setState({
+      text: text
+    });
   }
 
   getText() {
@@ -49,10 +56,6 @@ class App extends React.Component {
   // there is a problem here... where we are transmitting every key
   setupSocket() {
     var socket = io();
-    var text = this.editor.getValue();
-    this.setState({
-      text: text
-    });
 
     socket.on('alter text', (msg) => {
       if (this.state.text !== msg) {
@@ -109,12 +112,13 @@ class App extends React.Component {
   	  <div>
   	  	<button onClick={this.getText.bind(this)}>get code</button>
         <button onClick={this.sendCode.bind(this)}>process code</button>
+        <RTC io={this.socket} />
         <div>
           Response is: <p className="response"></p>
         </div>
-  	    <div>
-  	    <div id="editor" onKeyUp={this.handleKeyPress.bind(this)}></div>
-  	    </div>
+        <div>
+        <div id="editor" onKeyUp={this.handleKeyPress.bind(this)}></div>
+        </div>
   	  </div>
   	)
   }
