@@ -15,6 +15,10 @@ class RTC extends React.Component {
         src: null
       }
     };
+    this.offerOptions = {
+      offerToReceiveAudio: 1,
+      offerToReceiveVideo: 1
+    };
     this.socket = this.props.io;
     console.log('socket', this.socket);
 
