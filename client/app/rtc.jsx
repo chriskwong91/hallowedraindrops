@@ -81,7 +81,7 @@ class RTC extends React.Component {
         src: window.URL.createObjectURL(stream)
       }});
       this.state.peerConn.addStream(this.state.localstream.stream);
-      createAndSendOffer();
+      makeOffer();
     }, (error) => {
       console.error(error);
     });
@@ -97,13 +97,26 @@ class RTC extends React.Component {
         src: window.URL.createObjectURL(stream)
       }});
       this.state.peerConn.addStream(this.state.localstream.stream);
-      createAndSendAnswer();
+      sendAnswer();
     }, (error) => {
       console.error(error);
     });
   }
 
   makeOffer() {
+    this.state.peerConn.createOff((offer) => {
+      var off = new RTCSessionDescription(offer);
+      this.peerConn.setLocalDescription(new RTCSessionDescription(off), () => {
+        this.socket.on('msg', {sdp: off});
+      }, (error) => {
+        console.error(error);
+      });
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  sendAnswer() {
 
   }
 
