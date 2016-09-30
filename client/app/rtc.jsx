@@ -72,7 +72,21 @@ class RTC extends React.Component {
   //     videoElem.src = evt.stream;
   //   };
   // }
+  initiateCall() {
+    prepareCall();
 
+    this.getVideoStream.then((stream) => {
+      this.setState({ localstream: {
+        stream: stream,
+        src: window.URL.createObjectURL(stream)
+      }});
+      this.state.peerConn.addStream(this.state.localstream.stream);
+      createAndSendOffer();
+    }, (error) => {
+      console.error(error);
+    });
+
+  }
   answerCall() {
     this.prepareCall();
 
