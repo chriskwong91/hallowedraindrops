@@ -15,6 +15,10 @@ class RTC extends React.Component {
         src: null
       }
     };
+
+
+    this.localStream = null;
+
     this.offerOptions = {
       offerToReceiveAudio: 1,
       offerToReceiveVideo: 1
@@ -30,6 +34,10 @@ class RTC extends React.Component {
 
   componentDidMount() {
     this.socket.on('msg', this.handleMessage.bind(this));
+    this.localVideo = document.getElementById('localVideo');
+    console.log('local video', this.localVideo);
+    this.remoteVideo = document.getElementById('remoteVideo');
+    console.log('remote video', this.remoteVideo);
   }
   startChat() {
     this.getVideoStream().then((stream) => {
@@ -57,14 +65,39 @@ class RTC extends React.Component {
     // }
   }
 
+  start() {
+    navigator.getUserMedia({
+      video: true,
+      audio: true
+    }).then(this.gotStream)
+    .catch((e) => {alert('Get User Media Error! ' + e.name);});
+  }
+
+  gotStream(stream) {
+    this.localVideo.srcObject = stream;
+    this.localStream = stream;
+  }
+
+  call() {
+    var servers = null;
+    var pc = new webkitRTCPeerConnection(servers);
+    pc.onicecandidate = (e) => {
+      this.onIceCandidate(pc, e);
+    };
+    pc.oniceconnectionstatechange = (e) => {
+      this.onIceStateChange(pc, e);
+    };
+    pc.onicecandidate = this.onIceCandidateHandler;
+    pc.onaddstream = onAddStreamHandler;
+  }
   prepareCall() {
     var peerConn = new webkitRTCPeerConnection(this.iceConfig);
     this.setState({ peerConn : peerConn});
     // sends ice candidate to other peer
     console.log(peerConn, 'peerConn');
-    peerConn.onicecandidate = this.state.onIceCandidateHandler;
+    peerConn.onicecandidate = this.onIceCandidateHandler.bind(this);
     // when remote stream arrives, show in the remote video element
-    peerConn.onaddstream = this.onAddStreamHandler;
+    peerConn.onaddstream = this.onAddStreamHandler.bind(this);
   }
 
   // getPeerConnection() {
@@ -78,7 +111,7 @@ class RTC extends React.Component {
   // }
   initiateCall() {
     this.prepareCall();
-    navigator.getUserMedia({audio: true, video: true}, (stream) => {
+    window.navigator.getUserMedia({audio: true, video: true}, (stream) => {
     // this.getVideoStream().then((stream) => {
       this.setState({ localstream: {
         stream: stream,
@@ -177,9 +210,10 @@ class RTC extends React.Component {
   onAddStreamHandler(evt) {
     // this.connections.push(evt.stream);
     console.log('Received new stream!');
-    var videoElem = document.createElement("video");
-    document.getElementById('peerVideo').appendChild(videoElem);
-    videoElem.src = evt.stream;
+    // var videoElem = document.createElement("video");
+    // document.getElementById('peerVideo').appendChild(videoElem);
+    this.remoteVideo.srcObject = evt.stream;
+    // videoElem.srcObject = evt.stream;
   }
 
   endCall() {
@@ -196,6 +230,14 @@ class RTC extends React.Component {
         <div>
           <button onClick={this.initiateCall.bind(this)}>Join WebChat!</button>
           <Webcam src={this.state.localstream.src}/>
+        </div>
+        <video id="localVideo" autoPlay></video>
+        <video id="remoteVideo" autoPlay></video>
+
+        <div>
+          <button id="startButton" onClick={this.start}>Start</button>
+          <button id="callButton" onClick={this.call}>Call</button>
+          <button id="hangupButton" onClick={this.hangup}>Hang Up</button>
         </div>
         <div id='peerVideo'>
           <h3>Peer Videos:</h3>
