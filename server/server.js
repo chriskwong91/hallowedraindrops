@@ -51,6 +51,11 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
   	console.log('a user has disconnected');
   });
+
+  socket.on('msg', (msg) => {
+    console.log('emitting message in server');
+    io.emit('msg', msg);
+  });
 });
 // end for socket
 

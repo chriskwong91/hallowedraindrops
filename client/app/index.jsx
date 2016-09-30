@@ -105,6 +105,7 @@ class App extends React.Component {
     });
 
     this.socket.emit('text change', text);
+    console.log('index emitting socket', this.socket);
   }
 
   render () {
