@@ -9,12 +9,23 @@ class RTC extends React.Component {
     // this.stream = null;
     this.state = {
       src: null,
-      connections: {},
+      connections: [],
+      peerConn: null,
     };
     this.socket = this.props.io;
     console.log('socket', this.socket);
+
+    this.iceConfig = {
+      'iceServers' : [{
+        'url': 'stun:stun.1.google.com:19302'
+      }]
+    };
+
   }
 
+  componentDidMount() {
+    this.socket.on('msg', this.handleMessage);
+  }
   startChat() {
     this.getVideoStream().then((stream) => {
       this.setState({ src: window.URL.createObjectURL(stream)});
@@ -39,20 +50,59 @@ class RTC extends React.Component {
     // }
   }
 
-  getPeerConnection() {
-    var peerConn = new RTCPeerConnection();
-    peerConn.onaddstream = (evt) => {
-      console.log('Received new stream!');
-      var videoElem = document.createElement("video");
-      $('#peerVideo').appendChild(videoElem);
-      videoElem.src = evt.stream;
-    };
+  prepareCall() {
+    this.setState({ peerConn : new RTCPeerConnection(this.iceConfig) });
+    // sends ice candidate to other peer
+    this.state.peerConn.onicecandidate = this.state.onIceCandidateHandler;
+    // when remote stream arrives, show in the remote video element
+    this.state.peerConn.onaddstream = this.onAddStreamHandler;
   }
+
+  // getPeerConnection() {
+  //   this.setState({ peerConn : new RTCPeerConnection() });
+  //   this.state.peerConn.onaddstream = (evt) => {
+  //     console.log('Received new stream!');
+  //     var videoElem = document.createElement("video");
+  //     $('#peerVideo').appendChild(videoElem);
+  //     videoElem.src = evt.stream;
+  //   };
+  // }
 
   makeOffer() {
 
   }
 
+  handleMessage(data) {
+    var signal = null;
+    if (!this.state.peerConn) {
+      this.answerCall();
+    }
+    if (data.sdp) {
+      this.state.peerConn.setRemoteDescription(new RTCSessionDescription(data.sdp));
+    } else if (data.candidate) {
+      this.state.peerConn.addIceCandidate(new RTCIceCandidate(data.candidate));
+    } else if (data.closeConnection) {
+      this.endCall();
+    }
+  }
+
+  onIceCandidateHandler(evt) {
+    if (!evt || !evt.candidate) return;
+    // send ice candidate
+    this.socket.emit('msg', {candidate: evt.candidate});
+  }
+
+  onAddStreamHandler(evt) {
+    // this.connections.push(evt.stream);
+    console.log('Received new stream!');
+    var videoElem = document.createElement("video");
+    document.getElementById('peerVideo').appendChild(videoElem);
+    videoElem.src = evt.stream;
+  }
+
+  endCall() {
+    console.log('Ending Call');
+  }
   render() {
     return (
       <div>
