@@ -8,9 +8,12 @@ class RTC extends React.Component {
     super(props);
     // this.stream = null;
     this.state = {
-      src: null,
       connections: [],
       peerConn: null,
+      localstream: {
+        stream: null,
+        src: null
+      }
     };
     this.socket = this.props.io;
     console.log('socket', this.socket);
@@ -28,7 +31,9 @@ class RTC extends React.Component {
   }
   startChat() {
     this.getVideoStream().then((stream) => {
-      this.setState({ src: window.URL.createObjectURL(stream)});
+      this.setState({ localstream: {
+        src: window.URL.createObjectURL(stream)
+      }});
     });
   }
 
@@ -67,6 +72,22 @@ class RTC extends React.Component {
   //     videoElem.src = evt.stream;
   //   };
   // }
+
+  answerCall() {
+    this.prepareCall();
+
+    //get local stream and send
+    this.getVideoStream.then((stream) => {
+      this.setState({ localstream: {
+        stream: stream,
+        src: window.URL.createObjectURL(stream)
+      }});
+      this.state.peerConn.addStream(this.state.localstream.stream);
+      createAndSendAnswer();
+    }, (error) => {
+      console.error(error);
+    });
+  }
 
   makeOffer() {
 
