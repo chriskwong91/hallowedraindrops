@@ -1,17 +1,30 @@
 import React from 'react';
 
-class ChallengeAnswer extends React.Component{
+/*
+  User inputs the source code when creating new challenge
+*/
+export default class ChallengeAnswer extends React.Component{
   constructor(props) {
     super(props);
 
+    /*
+     * @textform: State of text of edit mode or <code> mode
+     * @code: User input source code
+    */
     this.state = {
-      mode: 'edit',
       textform: true,
       code: ''
     };
 
   }
 
+  /**
+    * @name handleSave
+    * @desc Sets the input code to the state, sends the code up to the form,
+    *    and changes edit mode to <code> mode
+    * @param none
+    * @returns {nothing}
+    */
   handleSave() {
     var text = this.refs.textarea.value;
     this.setState({
@@ -21,9 +34,16 @@ class ChallengeAnswer extends React.Component{
     this.setState({
       textform: false
     });
-    $('#save').toggleClass("hide");
+    $('#saveAnswer').toggleClass("hide");
   }
 
+  /**
+    * @name handleEdit
+    * @desc Sets the input code to the state, sends the code up to the form,
+    *    and changes edit mode to <code> mode
+    * @param none
+    * @returns {nothing}
+    */
   handleEdit() {
     $('#save').toggleClass("hide");
     this.setState({
@@ -45,7 +65,7 @@ class ChallengeAnswer extends React.Component{
         textform: false,
       });
     }.bind(this), 100)
-    $('#save').toggleClass("hide");
+    $('#saveAnswer').toggleClass("hide");
   }
 
   handleChange(e) {
@@ -64,12 +84,10 @@ class ChallengeAnswer extends React.Component{
             onPaste={this.handlePaste.bind(this)} onChange={this.handleChange.bind(this)} className="form-control" rows="14"
             id="comment" ref='textarea'>{this.state.code}</textarea> :
           <pre id='pre' className='pre-scrollable'>{this.state.code}</pre>}
-          <button id='save' onClick={this.handleSave.bind(this)} className="btn btn-default" type="button">Save</button>
+          <button id='saveAnswer' onClick={this.handleSave.bind(this)} className="btn btn-default" type="button">Save</button>
           <button onClick={this.handleEdit.bind(this)} className="btn btn-default" type="button">Edit</button>
         </div>
       </form>
     )
   }
 }
-
-export default ChallengeAnswer;

@@ -13,7 +13,7 @@ import Row from 'react-bootstrap/lib/Row.js';
 import Col from 'react-bootstrap/lib/Col.js';
 
 
-class ChallengeForm extends React.Component{
+export default class ChallengeForm extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -89,30 +89,28 @@ class ChallengeForm extends React.Component{
   render() {
     return (
       <div>
-          <PageHeader>Add a new challenge!</PageHeader>
-          <button onClick={this.handleSubmit.bind(this)} type="button" className="btn btn-outline-primary">Submit Challenge</button>
-           <div id="page-content-wrapper">
-            <Grid>
-              <Col sm={6} md={6}>
-                <TestLayout handleInfo={this.handleChallengeInfo.bind(this)} handleTests={this.handleTests.bind(this)}/ >
-              </Col>
-              <Col sm={6} md={6}>
-                <Row>
-                  <Col sm={6} md={12}>
-                    <ChallengePrompt handlePrompt={this.handlePrompt.bind(this)} />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={6} md={12}>
-                    <ChallengeAnswer handleSourceCode={this.handleSourceCode.bind(this)}/>
-                  </Col>
-                </Row>
-              </Col>
-            </Grid>
-          </div>
+        <PageHeader>Add a new challenge!</PageHeader>
+        <button onClick={this.handleSubmit.bind(this)} type="button" className="btn btn-outline-primary">Submit Challenge</button>
+         <div id="page-content-wrapper">
+          <Grid>
+            <Col sm={6} md={6}>
+              <TestLayout handleInfo={this.handleChallengeInfo.bind(this)} handleTests={this.handleTests.bind(this)}/ >
+            </Col>
+            <Col sm={6} md={6}>
+              <Row>
+                <Col sm={6} md={12}>
+                  <ChallengePrompt handlePrompt={this.handlePrompt.bind(this)} />
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={6} md={12}>
+                  <ChallengeAnswer handleSourceCode={this.handleSourceCode.bind(this)}/>
+                </Col>
+              </Row>
+            </Col>
+          </Grid>
+        </div>
       </div>
     );
   }
 }
-
-export default ChallengeForm;
