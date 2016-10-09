@@ -2,24 +2,11 @@ import React from 'react';
 import Navigation from './AdminNavigation.jsx';
 
 
-class Admin extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-
-
-  }
-
-  render() {
-    return (
+const Admin = props => (
       <div>
         <Navigation />
-        <div>{this.props.children}</div>
+        <div>{props.children}</div>
       </div>
-    );
-  }
-}
+);
 
 export default Admin;

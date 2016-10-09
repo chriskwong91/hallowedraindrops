@@ -1,38 +1,23 @@
 
 import React from 'react';
 
-import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
+// Bootstrap items
 import NavBar from 'react-bootstrap/lib/Navbar.js';
 import Nav from 'react-bootstrap/lib/Nav.js';
 import NavItem from 'react-bootstrap/lib/NavItem.js';
 
 
-class Navigation extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-  }
-
-
-
-  render () { // we also need to build the nav bar on the right
-    return (
+const Navigation = () => (
       <div>
         <NavBar fixedTop fluid staticTop>
           <Nav bsStyle="tabs" pullLeft>
-            <NavItem>Prep-Challenges</NavItem>
-            <NavItem>Run Code</NavItem>
+            <NavItem>{'<--'} Return to Editor</NavItem>
           </Nav>
           <Nav bsStyle="tabs" pullRight>
-            <NavItem pullRight>Profile asdf</NavItem>
+            <NavItem pullRight>Profile</NavItem>
           </Nav>
         </NavBar>
       </div>
-    )
-  }
-}
+);
 
 export default Navigation;
