@@ -30,12 +30,13 @@ class ChallengePrompt extends React.Component{
     this.setState({
       textform: false
     });
-    $('#saveQuestion').toggleClass("hide");
-    $('#editQuestion').toggleClass("hide");
+    $('#savePrompt').toggleClass("hide");
+    $('#editPrompt').toggleClass("hide");
   }
 
   handleEdit() {
-    $('#save').toggleClass("hide");
+    $('#savePrompt').toggleClass("hide");
+    $('#editPrompt').toggleClass("hide");
 
     this.setState({
       textform: true
@@ -54,7 +55,8 @@ class ChallengePrompt extends React.Component{
         textform: false,
       });
     }.bind(this), 100);
-    $('#save').toggleClass("hide");
+    $('#savePrompt').toggleClass("hide");
+    $('#editPrompt').toggleClass("hide");
 
   }
 
@@ -74,8 +76,8 @@ class ChallengePrompt extends React.Component{
             onPaste={this.handlePaste.bind(this)} onChange={this.handleChange.bind(this)} className="form-control" rows="14"
             id="comment" ref='textarea'>{this.state.code}</textarea> :
           <pre id='pre' className='pre-scrollable'>{this.state.code}</pre>}
-          <button id='save' onClick={this.handleSave.bind(this)} className="btn btn-default" type="button">Save</button>
-          <button onClick={this.handleEdit.bind(this)} className="btn btn-default" type="button">Edit</button>
+          <button id='savePrompt' onClick={this.handleSave.bind(this)} className="btn btn-default" type="button">Save</button>
+          <button id='editPrompt' onClick={this.handleEdit.bind(this)} className="btn btn-default hide" type="button">Edit</button>
         </div>
       </form>
     )
