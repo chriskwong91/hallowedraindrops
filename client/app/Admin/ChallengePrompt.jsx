@@ -3,14 +3,24 @@ import React from 'react';
 class ChallengePrompt extends React.Component{
   constructor(props) {
     super(props);
+
+    /*
+     * @textform: State of text of edit mode or <code> mode
+     * @code: User input challenge
+    */
     this.state = {
-      mode: 'edit',
       textform: true,
       code: ''
     };
-
   }
 
+  /**
+    * @name handleSave
+    * @desc Sets the input code to the state, sends the code up to the form,
+    *    and changes edit mode to <code> mode
+    * @param none
+    * @returns {nothing}
+    */
   handleSave() {
     var text = this.refs.textarea.value;
     this.setState({
@@ -20,7 +30,8 @@ class ChallengePrompt extends React.Component{
     this.setState({
       textform: false
     });
-    $('#save').toggleClass("hide");
+    $('#saveQuestion').toggleClass("hide");
+    $('#editQuestion').toggleClass("hide");
   }
 
   handleEdit() {
@@ -29,8 +40,6 @@ class ChallengePrompt extends React.Component{
     this.setState({
       textform: true
     });
-    document.getElementById('comment').html(this.state.code);
-    // this.textarea.value = this.state.code;
   }
 
   handlePaste(e) {
