@@ -15,6 +15,8 @@ import Col from 'react-bootstrap/lib/Col.js';
 // react-bootstrap elements
 import Jumbotron from 'react-bootstrap/lib/Jumbotron.js';
 
+import { Link } from 'react-router';
+
 class Blogger extends React.Component {
 	constructor(props) {
 		super(props)
@@ -68,6 +70,8 @@ class Blogger extends React.Component {
 						</Col>
 					</Row>
 				</Grid>
+				<Link to="/blog/create-blog">go to create-blog</Link>
+
 				<BloggerFooter></BloggerFooter>
 			</div>
 		)

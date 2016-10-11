@@ -4,6 +4,7 @@ const app = express();
 const services = require('./config/services.js');
 const replRouter = require('./resources/repl/replRoutes.js');
 const adminRouter = require('./resources/admin/adminRoutes.js');
+const blogRouter = require('./resources/blog/blogRoutes.js');
 
 // var router = require('./config/routes.js');
 
@@ -19,6 +20,7 @@ app.set('view engine', 'html');
 app.use(express.static(__dirname + '../client'));
 app.use('/api/replservice', replRouter);
 app.use('/admin', adminRouter);
+app.use('/api/blog', blogRouter);
 
 const port = process.argv[2] || 8080;
 const server = require('http').Server(app);

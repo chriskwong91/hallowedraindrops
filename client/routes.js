@@ -14,6 +14,9 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Blog from './app/blog-component/blog.jsx';
 import Blogger from './app/blog-component/blogger.jsx';
 
+// an admin page
+import BlogCreator from './app/blog-component/blog-creator/blog-creator.jsx';
+
 // bootstrap: https://medium.com/@victorleungtw/how-to-use-webpack-with-react-and-bootstrap-b94d33765970#.yd8htlxw0
 
 //*********** We need an App.jsx
@@ -34,6 +37,7 @@ ReactDOM.render(
       <Route path ="home" component={Home} />
       <Route path ="blog" component={Blog} />
       <Route path ="blog/:bloggername" component={Blogger} />
+      <Route path ="blog/create-blog" component={Home} />
 			<Route path ="*" component={NoMatch}/>
 		</Route>
 	</Router>
