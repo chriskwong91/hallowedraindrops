@@ -12,70 +12,33 @@ import Grid from 'react-bootstrap/lib/Grid.js';
 import Row from 'react-bootstrap/lib/Row.js';
 import Col from 'react-bootstrap/lib/Col.js';
 
+import store from '../store/index';
+let state = store.getState;
 
-class ChallengeForm extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      prompt: '',
-      tests: [],
-      sourceCode: '',
-      info: {
-        title: '',
-        difficulty: '1'
-      },
-    };
-  }
+const ChallengeForm = props => {
 
-  componentDidMount() {
-  }
-
-  handlePrompt(code) {
-    this.setState({
-      prompt: code
-    });
-  }
-
-  handleTests(tests) {
-    this.setState({
-      tests: tests
-    });
-  }
-
-  handleSourceCode(code) {
-    this.setState({
-      sourceCode: code
-    });
-  }
-
-  handleChallengeInfo(info) {
-    this.setState({
-      info: info
-    });
-  }
-
-  handleSubmit() {
-    console.log('state to send', this.state);
+  let handleSubmit = () => {
     var question = {
-      name: this.state.info.title,
-      difficulty: this.state.info.difficulty,
+      name: state().newChallenge.challengeTitle,
+      difficulty: state().newChallenge.challengeDifficulty,
       attempts: 0,
       answers: 0,
-      prompt: this.state.prompt,
+      prompt: state().newChallenge.challengePrompt,
     };
 
     var body = {
       question: question,
-      varArry: this.state.tests,
-      sourceCode: this.state.sourceCode
+      varArry: state().newChallenge.challengeTests,
+      sourceCode: state().newChallenge.challengeSRCCode,
     };
-    this.addChallenge(body);
+    console.log('sending this body of info to test server', body);
+    addChallenge(body);
   }
 
-  addChallenge(body) {
+  let addChallenge = body => {
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8080/admin/challenge/' + this.state.info.title,
+      url: 'http://localhost:8080/admin/challenge/' + state().newChallenge.challengeTitle,
       data: body,
       success: (data) => {
         console.log('Success!', data);
@@ -86,33 +49,32 @@ class ChallengeForm extends React.Component{
     });
   }
 
-  render() {
-    return (
-      <div>
-          <PageHeader>Add a new challenge!</PageHeader>
-          <button onClick={this.handleSubmit.bind(this)} type="button" className="btn btn-outline-primary">Submit Challenge</button>
-           <div id="page-content-wrapper">
-            <Grid>
-              <Col sm={6} md={6}>
-                <TestLayout handleInfo={this.handleChallengeInfo.bind(this)} handleTests={this.handleTests.bind(this)}/ >
-              </Col>
-              <Col sm={6} md={6}>
-                <Row>
-                  <Col sm={6} md={12}>
-                    <ChallengePrompt handlePrompt={this.handlePrompt.bind(this)} />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={6} md={12}>
-                    <ChallengeAnswer handleSourceCode={this.handleSourceCode.bind(this)}/>
-                  </Col>
-                </Row>
-              </Col>
-            </Grid>
-          </div>
-      </div>
-    );
-  }
+  return (
+    <div>
+        <PageHeader>Add a new challenge!</PageHeader>
+        <button onClick={handleSubmit} type="button" className="btn btn-outline-primary">Submit Challenge</button>
+         <div id="page-content-wrapper">
+          <Grid>
+            <Col sm={6} md={6}>
+              <TestLayout />
+            </Col>
+            <Col sm={6} md={6}>
+              <Row>
+                <Col sm={6} md={12}>
+                  <ChallengePrompt />
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={6} md={12}>
+                  <ChallengeAnswer />
+                </Col>
+              </Row>
+            </Col>
+          </Grid>
+        </div>
+    </div>
+  );
+
 }
 
 export default ChallengeForm;

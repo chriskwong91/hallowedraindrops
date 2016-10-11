@@ -27,15 +27,20 @@ module.exports = {
   },
 
   addTest: (req, res, callback) => {
+    console.log('hello', req.body.varArry, Object.keys(req.body))
     var options = {
       method: 'POST',
-      uri: service.Testing,
-      body: req.body.test,
+      uri: service.testing,
+      body: {
+        arr: req.body.varArry,
+        name: req.body.question.name
+      },
       json: true
     };
     request(options)
       .then((test) => {
         console.log('Test was added');
+        res.send('ok');
         callback(test);
       }).catch((e)=> {
         console.error(e);

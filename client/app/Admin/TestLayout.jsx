@@ -8,35 +8,30 @@ import Grid from 'react-bootstrap/lib/Grid.js';
 import Row from 'react-bootstrap/lib/Row.js';
 import Col from 'react-bootstrap/lib/Col.js';
 
+//Redux
+import store from '../store/index';
+import {challengeTests} from '../actions/index';
+
 class TestingLayout extends React.Component{
   constructor(props) {
     super(props);
+
+    //This state is used to map the individual test on the screen
     this.state = {
       tests: [],
-      testinfo: []
     };
   }
 
   handleNewTest() {
-    var length = this.state.tests.length;
+    var length = store.getState().newChallenge.challengeTests.length;
 
-    var test = <TestEntry num={length} info={this.getInfo.bind(this)}/>;
+    var test = <TestEntry key={length} num={length} />;
+
     var tests = this.state.tests.slice();
     tests.push(test);
-    console.log('add new test');
     this.setState({
       tests: tests
     });
-  }
-
-  getInfo(el, state) {
-    var tests = this.state.testinfo;
-    tests[el.props.num] = el.state;
-
-    this.setState({
-      testinfo: tests
-    })
-    this.props.handleTests(tests);
   }
 
   render() {
@@ -44,7 +39,7 @@ class TestingLayout extends React.Component{
       <div>
         <Row>
           <Col sm={6} md={12}>
-            <ChallengeInfo handleInfo={this.props.handleInfo} />
+            <ChallengeInfo />
           </Col>
         </Row>
         <Row>

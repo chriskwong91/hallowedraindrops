@@ -31,9 +31,7 @@ class Home extends React.Component {
 
 	componentDidMount() {
 		// uncommented for testing
-		console.log('entered inside of the home.jsx file');
 		this.setPad();
-		console.log('this props children', this.props.children);
 	}
 
 	githubAuth () {
@@ -42,7 +40,6 @@ class Home extends React.Component {
 
 	setPad() {
 		$.get('/pad/create', (data) => {
-			console.log('the ukey pulled in from the front-end is: ', data);
 			//** try redirecting wtih browserHistory
 
 			this.setState({
@@ -77,7 +74,7 @@ class Home extends React.Component {
 			<div>
 				<Jumbotron className="banner">
 					<span className="banner-text">codedrop</span>
-					
+
 					<div>
 						<Link className="home-terminal" to="/blog">Blog (temporary)</Link>
 					</div>

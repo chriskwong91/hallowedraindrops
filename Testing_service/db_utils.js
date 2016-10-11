@@ -1,9 +1,39 @@
 var db = require('./database/config.js');
 var Test = require('./database/models/testing.js');
+var _ = require('underscore');
+
+var Describe = function(describe) {
+  this.description = describe.description;
+  this.itsArr = describe.itsArr;
+};
+
+var It = function(it) {
+  this.description = it.description;
+  this.method = it.method;
+  this.ans = it.ans;
+  this.snippet = it.snippet;
+};
 
 module.exports = {
   newTest: function (req, res) {
-    var test = new Test(req.body);
+    var question_name = req.body.name,
+        itsArr = _.map(req.body.arr, (item) => {
+          var newIt = new It({
+            snippet: item.snippet,
+            method: item.method,
+            ans: item.answer
+          });
+          return newIt;
+        });
+    
+    var dArr = [new Describe({
+      itsArr: itsArr
+    })];
+
+    var test = new Test({
+      question_name: req.body.name,
+      dArr: JSON.stringify(dArr)
+    });
 
     test.save((err, newTest) => {
       if (err) {
@@ -14,14 +44,14 @@ module.exports = {
     });
   },
 
-  getTest: function(req, res) {
-    var id = req.query.question_id;
-    Test.findOne({question_id: id}).exec((err, found) => {
+  getTest: function(req, res, callback) {
+    const name = req.body.name;
+    Test.findOne({question_name: name}).exec((err, found) => {
       if (err) {
         res.status(500).json({ error: err });
       }
       if (found) {
-        res.json(found);
+        callback(found)
       } else {
         res.send('Test does not exist!');
       }
@@ -51,4 +81,3 @@ module.exports = {
     });
   },
 };
-

@@ -7,32 +7,17 @@ import Nav from 'react-bootstrap/lib/Nav.js';
 import NavItem from 'react-bootstrap/lib/NavItem.js';
 
 
-class Navigation extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-  }
-
-
-
-  render () { // we also need to build the nav bar on the right
-    return (
-      <div>
-        <NavBar fixedTop fluid staticTop>
-          <Nav bsStyle="tabs" pullLeft>
-            <NavItem>Prep-Challenges</NavItem>
-            <NavItem>Run Code</NavItem>
-          </Nav>
-          <Nav bsStyle="tabs" pullRight>
-            <NavItem pullRight>Profile asdf</NavItem>
-          </Nav>
-        </NavBar>
-      </div>
-    )
-  }
-}
-
+const Navigation = () =>(
+  <div>
+    <NavBar fixedTop fluid staticTop>
+      <Nav bsStyle="tabs" pullLeft>
+        <NavItem>Prep-Challenges</NavItem>
+        <NavItem>Submit Code</NavItem>
+      </Nav>
+      <Nav bsStyle="tabs" pullRight>
+        <NavItem pullRight>Profile</NavItem>
+      </Nav>
+    </NavBar>
+  </div>
+)
 export default Navigation;

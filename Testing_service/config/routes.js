@@ -12,11 +12,10 @@ module.exports = (app) => {
     */
   app.route('/db/test')
     .get((req, res) => {
-      console.log(req.query);
       db_utils.getTest(req, res);
     })
     .post((req, res) => {
-      // res.send('hello world');
+      console.log(req.body)
       db_utils.newTest(req, res);
     })
     .put((req, res) => {

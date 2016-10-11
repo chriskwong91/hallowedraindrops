@@ -34,9 +34,9 @@ class Blogger extends React.Component {
 	// a service that will make a call to the db for that blog profile
 		// should be a sql db
 
-	// will pull in data from the database for 
+	// will pull in data from the database for
 		// the user that's being pulled will be from the url
-			// 
+			//
 
 	/* To-Dos:
 		columns for this page

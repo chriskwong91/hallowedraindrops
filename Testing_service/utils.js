@@ -2,111 +2,59 @@ var Mocha = require('mocha');
 var Chai = require('chai');
 var Test = Mocha.Test;
 var expect = Chai.expect;
+var should = Chai.should;
+var request = require('request-promise');
 
+var methodMap = require('./mappedMethod.js');
+var db_utils = require('./db_utils.js');
+
+var wrapper = function(source_code, item){
+  eval(source_code);
+  return eval('(' + item + ')');
+};
 
 
 module.exports = {
   testSuite: function(req, res){
-    var mochaInstance = new Mocha();
-    var dArr = req.body.dArr;
-    // make sure userFunction is named 'fn'
-    // expected example: var fn = eval(req.body.userFunction);
-    dArr.forEach(function(dObj){
-      var suiteInstance = Mocha.Suite.create(mochaInstance.suite, dObj.description);
-      dObj.itsArr.forEach(function(itObj){
-        suiteInstance.addTest(new Test(itObj.description, function(){
-          // methodMap[itObj.method](eval(itObj.snippet), itObj.ans);
-          methodMap[itObj.method](2,4);
-        }));
+    db_utils.getTest(req, res, (entry) => {
+      var mochaInstance = new Mocha();
+      var dArr = JSON.parse(entry.dArr);
+      var passedTests = [],
+          failedTests = [],
+          triggered = false,
+          order_counter = 1;
+
+      var suiteInstance = Mocha.Suite.create(mochaInstance.suite, dArr[0].description || 'test description');
+      dArr.forEach(function(dObj){
+        dObj.itsArr.forEach(function(itObj){
+          suiteInstance.addTest(new Test(itObj.description || 'test description', function(){
+            methodMap[itObj.method](wrapper(req.body.code, itObj.snippet), wrapper(req.body.code, itObj.ans));
+          }));
+        });
       });
-    });
 
-    mochaInstance.run(function(num_of_errs){
-      res.send({num_of_errs: num_of_errs});
-    });
+
+      mochaInstance.run()
+        .on('pass', function (test) {
+          // console.log(test);
+          passedTests.push({title:test.title, state: test.state, order_counter: order_counter++});
+        })
+        .on('fail', function(test, errs){
+          failedTests.push({errs:errs, order_counter: order_counter++});
+        })
+        .on('suite end', function(){
+          if (!triggered){
+            var tests = JSON.stringify({
+              passedTests: passedTests,
+              failedTests: failedTests
+            });
+            res.json(tests);
+            passedTests = [];
+            failedTests = [];
+            triggered = true;
+            order_counter = 1;
+          }
+        })
+    });  
   }
-};
-
-// var methodMap = {
-//     equal: function(submit, answer){
-//         expect(submit).to.equal(answer);
-//     }
-// };
-
-// var Describe = function(describe) {
-//   this.description = describe.description;
-//   this.itsArr = describe.itsArr;
-// };
-
-// var It = function(it) {
-//   this.description = it.description;
-//   this.method = it.method;
-//   this.ans = it.ans;
-//   this.snippet = it.ans;
-// };
-
-// var dArr = [],
-// 		itsArr;
-
-// for (var i = 0; i < 10; i++){
-// 	itsArr = [];
-// 	for (var j = 0 ; j < 10; j++){
-// 		itsArr.push(new It({description: "it test" + j, method: 'equal'}));
-// 	}
-// 	dArr.push(new Describe({itsArr: itsArr, description: "hello" + i}));
-// }
-
-// var dArr = [
-//   {
-//     description:'test1',
-//     itsArr: [
-//       {
-//         method: 'equal',
-//         description: 'test description1'
-//       },
-//       {
-//         method: 'equal',
-//         description: 'test description2'
-//       }
-//     ]
-//   },
-//   {
-//     description:'test2',
-//     itsArr: [
-//       {
-//         method: 'equal',
-//         description: 'test description3'
-//       },
-//       {
-//         method: 'equal',
-//         description: 'test description4'
-//       }
-//     ]
-//   },
-//   {
-//     description:'test3',
-//     itsArr: [
-//       {
-//         method: 'equal',
-//         description: 'test description5'
-//       },
-//       {
-//         method: 'equal',
-//         description: 'test description6'
-//       }
-//     ]
-//   },
-//   {
-//     description:'test4',
-//     itsArr: [
-//       {
-//         method: 'equal',
-//         description: 'test description7'
-//       },
-//       {
-//         method: 'equal',
-//         description: 'test description8'
-//       }
-//     ]
-//   }
-// ];
+}; 

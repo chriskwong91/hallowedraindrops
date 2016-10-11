@@ -1,14 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 // other pages such as home-page
 // other pages such as signup-page
 // other pages such as interviewer page
 // other pages such as profile page
 import NoMatch from './app/NoMatch.jsx';
-import Index from './app/index.jsx';
+// import Index from './app/index.jsx';
 import Editor from './app/editor.jsx';
 import Home from './app/home.jsx';
 import Admin from './app/Admin/Admin.jsx';
+import App from './app/App.jsx';
 import ChallengeForm from './app/Admin/ChallengeForm.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Blog from './app/blog-component/blog.jsx';
@@ -25,10 +25,24 @@ import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-ro
 
 // need a correct way to route to blog
 
-ReactDOM.render(
-	<Router history={browserHistory}>
-		<Route path="/" component={Index}>
-			<IndexRoute component={Home}></IndexRoute>
+// export default <Router history={browserHistory}>
+// 		<Route path="/" component={Index}>
+// 			<IndexRoute component={Home}></IndexRoute>
+//       <Route path ="/editor/:editorid" component={Editor} />
+//       <Route path ="admin" component={Admin}>
+//         <Route path="addchallenge" component={ChallengeForm} />
+//         <Route path="*" component={NoMatch} />
+//       </Route>
+//       <Route path ="home" component={Home} />
+//       <Route path ="blog" component={Blog} />
+//       <Route path ="blog/:bloggername" component={Blogger} />
+// 			<Route path ="*" component={NoMatch}/>
+// 		</Route>
+// 	</Router>
+
+
+export default <Route path="/" component={App}>
+     <IndexRoute component={Home}></IndexRoute>
       <Route path ="/editor/:editorid" component={Editor} />
       <Route path ="admin" component={Admin}>
         <Route path="addchallenge" component={ChallengeForm} />
@@ -40,5 +54,15 @@ ReactDOM.render(
       <Route path ="blog/create-blog" component={Home} />
 			<Route path ="*" component={NoMatch}/>
 		</Route>
-	</Router>
 	, document.getElementById('app'));
+ 
+// ReactDOM.render( routes , document.getElementById('app'));
+
+
+// export default <Route path="/" component={Blogger}>
+//   <IndexRoute component={Editor} />
+//   <Route path="/:login/:name"
+//          component={Editor} />
+//   <Route path="/:login"
+//          component={Admin} />
+// </Route>

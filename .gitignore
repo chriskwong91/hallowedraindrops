@@ -37,3 +37,6 @@ REPL_service/config/*.txt
 
 #Files used for Github Auth
 server/config/env/config.js
+
+# Files used for Analytics Service
+ANALYTICS_service/config/env/config.js

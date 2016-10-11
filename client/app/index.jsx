@@ -1,24 +1,21 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
+import { Router, browserHistory } from 'react-router'
+// // import { syncHistoryWithStore } from 'react-router-redux'
+// // import Root from './app/containers/Root'
+import configureStore from './store/index'
+import routes from '../routes'
+import { Provider } from 'react-redux'
+import ReactDOM from 'react-dom'
 
-// index.jsx is going to house both the editor as well the editors' output
+const store = configureStore;
+// const history = syncHistoryWithStore(browserHistory, store)
 
-class App extends React.Component {
+render(
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
+)
 
-  constructor(props) {
-    super(props);
-  }
-
-
-  render () {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
-  }
-}
-
-module.exports = App;
-
-// render(<App/>, document.getElementById('app'));
+// store.subscribe(render);

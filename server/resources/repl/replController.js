@@ -23,7 +23,7 @@ module.exports = {
   sendCodeToTest: (req, res) => {
     var options = {
       method: 'POST',
-      uri: service.test,
+      uri: service.suite,
       body: req.body,
       json: true
     };

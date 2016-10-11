@@ -15,9 +15,10 @@ adminRouter.route('/challenge/*')
   .post((req, res, next) => {
     //addTest commented out as it is not implemented
     adminController.addQuestion(req, res, () => {
-      // adminController.addTest(req, res, () => {
-        res.sendStatus(201);
-      // });
+      adminController.addTest(req, res, () => {
+        console.log()
+        // res.sendStatus(201);
+      });
     });
   });
 
