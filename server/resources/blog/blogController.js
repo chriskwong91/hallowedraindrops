@@ -16,7 +16,8 @@ var BlogQuestion = require('../../database/models/BlogQuestions.js');
 
 module.exports = {
 	getContent: (req, res) => {
-		var name = req.url.split('get')[1];
+		var name = req._passport.instance._userProperty;
+		// name is github name on the session
 		BlogQuestion.sync().then(() => {
 			BlogQuestion.find({where: {name: name}})
 			.then((data) => {
@@ -26,8 +27,21 @@ module.exports = {
 		});
 	},
 
-	// addContent: (req, res) => {
-	// 	// leave this one alone for now
+	addContent: (req, res) => {
+		console.log('entered into addContent');
+		var name = req._passport.instance._userProperty; //github name
+		var dataToBeAdded = req.body;
+		console.log('req.body value is: ', req.body);
+		// we have the name now
+		// BlogQuestion.sync().then(() => {
+		// 	BlogQuestion.find({where: {name: name}})
+		// 	.then((data) => {
+		// 		if(!data) {
+		// 			BlogQuestion.create();
+		// 		}
 
-	// }
+		// 	})
+		// })
+
+	}
 }

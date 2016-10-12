@@ -51,10 +51,10 @@ export default <Route path="/" component={App}>
       <Route path ="home" component={Home} />
       <Route path ="blog" component={Blog} />
       <Route path ="blog/:bloggername" component={Blogger} />
-      <Route path ="blog/create-blog" component={Home} />
+      <Route path ="create-blog" component={BlogCreator} />
 			<Route path ="*" component={NoMatch}/>
 		</Route>
-	, document.getElementById('app'));
+	//, document.getElementById('app'));
  
 // ReactDOM.render( routes , document.getElementById('app'));
 

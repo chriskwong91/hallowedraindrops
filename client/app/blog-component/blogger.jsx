@@ -66,11 +66,11 @@ class Blogger extends React.Component {
 					<Row>
 						<Col>
 							<BloggerProfile name={user}></BloggerProfile>
+							<Link to="/blog/create-blog">go to create-blog</Link>
 							<BloggerQuestions></BloggerQuestions>
 						</Col>
 					</Row>
 				</Grid>
-				<Link to="/blog/create-blog">go to create-blog</Link>
 
 				<BloggerFooter></BloggerFooter>
 			</div>

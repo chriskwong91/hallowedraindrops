@@ -19,7 +19,7 @@ class BloggerFooter extends React.Component {
 	render() {
 		return (
 			<div className="blogger-footer">
-				<span>Read More HackReactor Entries</span>
+				<span className="footer-read-more">Read More HackReactor Entries</span>
 			</div>
 		)
 	}

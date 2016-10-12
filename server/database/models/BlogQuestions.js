@@ -7,7 +7,7 @@ var Sequelize = require('sequelize');
 var BlogQuestions = sequelize.define('blog-questions', {
 	name: Sequelize.STRING,
 	linkedin: Sequelize.STRING,
-	github_url: Sequelize.STRING,
+	github: Sequelize.STRING,
 	bootcamp: Sequelize.STRING,
 	banner_img: Sequelize.STRING,
 	Q1: Sequelize.TEXT,
@@ -18,6 +18,9 @@ var BlogQuestions = sequelize.define('blog-questions', {
 	Q6: Sequelize.TEXT,
 	page_comments: Sequelize.TEXT,
 	views: Sequelize.INTEGER,
+	likes: Sequelize.INTEGER,
+	self_blurb: Sequelize.STRING,
+	past: Sequelize.STRING,
 });
 
 module.exports = BlogQuestions;
