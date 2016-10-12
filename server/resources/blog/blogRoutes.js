@@ -13,6 +13,7 @@ blogRouter.route('/post')
 	.post((req, res, next) => {
 		var authUser = req._passport.instance._userProperty;
 		console.log('value for authuser is: ', req._passport.instance);
+		console.log('value for req.sessions in blogRoutes.js is: ', req.session);
 		console.log(req.user);
 		// if(authUser === 'user') {
 		// 	res.status(400).send('re-authenticate with github please!'); // tell them they need to re-auth with github

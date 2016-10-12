@@ -32,6 +32,7 @@ class BlogCreator extends React.Component {
 			],
 			questions_profile: [
 				"What is your Name",
+				"What is your Github", // adding in this to for-sure check that they entered their github handle
 				"What is your linkedin?",
 				"What were you doing prior to joining with HackReactor?",
 				"How would you describe yourself in less than 140 characters",
@@ -39,6 +40,7 @@ class BlogCreator extends React.Component {
 			],
 			profile_example: [
 				"James Bond",
+				"astonmartin_destroyer123",
 				"https://www.linkedin.com/in/jamesbonddc",
 				"I was saving the world",
 				"Ex-British Secret Sevice turned Software Engineer",
@@ -46,6 +48,7 @@ class BlogCreator extends React.Component {
 			],
 			profile_classes: [
 				"name",
+				"github",
 				"linkedin",
 				"past",
 				"self_blurb",
@@ -106,7 +109,7 @@ class BlogCreator extends React.Component {
 	render() {
 		return (
 			<div>
-				<span className="blog-selection-bootcamp-header">Please make sure you have authenticated your Github with us. We don't want you to forget and possibly have to re-type your answers. :-(</span>
+				<span className="blog-selection-bootcamp-header">Double Check that the links you provide are correct!</span>
 				<br/>
 				<br/>
 				<div className="blog-profile-questions">

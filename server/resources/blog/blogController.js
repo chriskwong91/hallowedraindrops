@@ -31,6 +31,10 @@ module.exports = {
 		console.log('entered into addContent');
 		var name = req._passport.instance._userProperty; //github name
 		var dataToBeAdded = req.body;
+
+		// given their first name, can we actually get their github?
+		// we can go ahead and pick up the github handle
+		console.log('req.session value is: ', req.session);
 		console.log('req.body value is: ', req.body);
 		// we have the name now
 		// BlogQuestion.sync().then(() => {

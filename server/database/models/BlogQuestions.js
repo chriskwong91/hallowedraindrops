@@ -7,7 +7,7 @@ var Sequelize = require('sequelize');
 var BlogQuestions = sequelize.define('blog-questions', {
 	name: Sequelize.STRING,
 	linkedin: Sequelize.STRING,
-	github: Sequelize.STRING,
+	github: Sequelize.STRING, // their github handle
 	bootcamp: Sequelize.STRING,
 	banner_img: Sequelize.STRING,
 	Q1: Sequelize.TEXT,
@@ -29,7 +29,7 @@ module.exports = BlogQuestions;
 /* schema:
 - name
 - linkedin
-- github url
+- github handle
 - bootcamp
 - banner image
 - Q1
