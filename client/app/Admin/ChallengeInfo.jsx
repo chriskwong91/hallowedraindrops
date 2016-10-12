@@ -17,26 +17,25 @@ const ChallengeInfo = props => {
 
   return (
     <div>
-      <form>
-        <div className="form-group row">
-          <label htmlFor="challenge-title" className="col-xs-2 col-form-label">Challenge Title</label>
-          <div className="col-xs-8">
-            <input className="form-control" type="text" placeholder="Challenge Name" value={props.challengeTitle} onChange={handleChange} id="challenge-title"/>
-          </div>
+      <div className='row challenge-info'>
+        <div className="input-group input-group-lg col-md-4 col-md-offset-4">
+          <label htmlFor="title" className='challenge-label'>Challenge Title</label>
+          <input id="title" type="text" className="form-control" placeholder="Challenge Title" value={props.challengeTitle} onChange={handleChange}/>
         </div>
-        <div className="form-group row">
-          <label htmlFor="difficulty" className='col-xs-2 col-form-label'>Difficulty</label>
-          <div className ='col-xs-3'>
-            <select onChange={handleSelect}className="form-control" id="difficulty" >
-              <option>1 (easy)</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5 (hard)</option>
-            </select>
-          </div>
+      </div>
+      <div className="input-group input-group-lg row challenge-info col-md-4 col-md-offset-4">
+        <label htmlFor="difficulty" className='challenge-label'>Difficulty</label>
+        <div className ='input-group-lg'>
+          <select onChange={handleSelect} className="form-control" id="difficulty" >
+            <option></option>
+            <option>1 (easy)</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5 (hard)</option>
+          </select>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

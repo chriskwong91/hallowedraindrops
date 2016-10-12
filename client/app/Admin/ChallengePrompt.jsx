@@ -60,6 +60,7 @@ class ChallengePrompt extends React.Component{
     // let code to be pasted
     setTimeout(function () {
       var code = this.refs.textarea.value;
+      console.log(JSON.stringify(code));
       store.dispatch(challengePrompt(code));
 
       this.setState({
@@ -84,13 +85,13 @@ class ChallengePrompt extends React.Component{
   render() {
     let textbox = (this.state.textform ?
           <textarea placeholder="Paste Challenge Code Here"
-            onPaste={this.handlePaste.bind(this)} onChange={this.handleChange.bind(this)} className="form-control" rows="14"
+            onPaste={this.handlePaste.bind(this)} onChange={this.handleChange.bind(this)} className="form-control form-control-log challenge-info" rows="14"
             id="comment" ref='textarea' value={this.props.challengePrompt}></textarea> :
           <pre id='pre' className='pre-scrollable'>{state().newChallenge.challengePrompt}</pre>)
     return (
       <form>
         <div className="form-group">
-          <label htmlFor="comment">Challenge Prompt:</label>
+
           {textbox}
           <button id='savePrompt' onClick={this.handleSave.bind(this)} className="btn btn-default" type="button">Save</button>
           <button id='editPrompt' onClick={this.handleEdit.bind(this)} className="btn btn-default hide" type="button">Edit</button>

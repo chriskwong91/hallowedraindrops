@@ -19,6 +19,7 @@ import BlogCreator from './app/blog-component/blog-creator/blog-creator.jsx';
 
 // bootstrap: https://medium.com/@victorleungtw/how-to-use-webpack-with-react-and-bootstrap-b94d33765970#.yd8htlxw0
 import ChallengeSplash from './app/challengeSplash.jsx';
+import ChallengeInfo from './app/components/ChallengeInfo.jsx';
 
 import How from './app/howItWorks.jsx';
 
@@ -57,6 +58,7 @@ export default <Route path="/" component={App}>
       <Route path ="create-blog" component={BlogCreator} />
       <Route path ="splash" component = {ChallengeSplash} />
       <Route path ="howitworks" component = {How} />
+      <Route path ="/splash/info" component = {ChallengeInfo} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 // ReactDOM.render( routes , document.getElementById('app'));
