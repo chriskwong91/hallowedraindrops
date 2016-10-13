@@ -13,6 +13,7 @@ import ChallengeForm from './app/Admin/ChallengeForm.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Blog from './app/blog-component/blog.jsx';
 import Blogger from './app/blog-component/blogger.jsx';
+import Profile from './app/Profile.jsx';
 
 // bootstrap: https://medium.com/@victorleungtw/how-to-use-webpack-with-react-and-bootstrap-b94d33765970#.yd8htlxw0
 import ChallengeSplash from './app/challengeSplash.jsx';
@@ -53,6 +54,7 @@ export default <Route path="/" component={App}>
       <Route path ="blog/:bloggername" component={Blogger} />
       <Route path ="splash" component = {ChallengeSplash} />
       <Route path ="howitworks" component = {How} />
+      <Route path ="profile/:username" = component ={Profile} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 // ReactDOM.render( routes , document.getElementById('app'));
