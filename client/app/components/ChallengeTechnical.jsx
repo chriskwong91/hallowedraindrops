@@ -7,6 +7,7 @@ import Navigation from '../Admin/AdminNavigation.jsx';
 import ChallengeAnswer from '../Admin/ChallengeAnswer.jsx'
 import TestEntry from '../Admin/TestEntry.jsx';
 import TestLayout from '../Admin/TestLayout.jsx';
+import Console from '../output.jsx';
 
 import store from '../store/index';
 let state = store.getState;
@@ -14,6 +15,36 @@ let state = store.getState;
 class ChallengeTechnical extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      console: null
+    }
+  }
+
+  componentDidMount() {
+    this.startConsole();
+  }
+  startConsole () {
+    // move jqconsole out
+    var jqconsole = $('#challenge-console').jqconsole('\n', '>>>');
+
+    this.setState({
+      console: jqconsole
+    });
+
+    // jqconsole setup
+    $(function () {
+        var startPrompt = function () {
+        // Start the prompt with history enabled.
+        jqconsole.Prompt(true, function (input) {
+        // Output input with the class jqconsole-output.
+        jqconsole.Write(input + '\n', 'jqconsole-output');
+        // Restart the prompt.
+        startPrompt();
+        });
+      };
+    startPrompt();
+    });
   }
 
   handleSubmit() {
@@ -56,7 +87,7 @@ class ChallengeTechnical extends React.Component {
 
   render() {
     return (
-    <div>
+    <div className='container'>
       <Navigation> </Navigation>
       <div className='row jumbotron challenge-info'>
         <h1 className="blog-selection-header">Create Tests and Answers.</h1>
@@ -67,12 +98,17 @@ class ChallengeTechnical extends React.Component {
           <TestLayout />
         </div>
         <div className='col-md-5'>
-        <label htmlFor="comment" className='challenge-label'>Challenge Answer Code: </label>
-          <ChallengeAnswer />
+          <div classNAme='row'>
+            <label htmlFor="comment" className='challenge-label'>Challenge Answer Code: </label>
+            <ChallengeAnswer />
+          </div>
+          <div className='console-container row'>
+            <div id='challenge-console' className='challenge-console'></div>
+          </div>
         </div>
       </div>
 
-      <div className="challenge-splash-supporting row">
+      <div className="challenge-splash-supporting challenge-technical-buttons row">
         <div className="col-md-2 col-md-offset-3">
           <Link to="/challenge/info" className="challenge-start"><div className="challenge-submit">Go Back</div></Link>
         </div>
