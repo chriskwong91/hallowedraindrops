@@ -30,9 +30,10 @@ class Editor extends React.Component {
       question: '',
       auth: false,
       console: null,
-      current_question: ''
-    };
-  }
+      current_question: '',
+      github: ''
+	  };
+	}
 
   componentDidMount() {
     this.editor = this.editorSetup();
@@ -48,6 +49,11 @@ class Editor extends React.Component {
     this.pairMe = this.pairMe.bind(this);
     this.sidebar();
     this.startConsole();
+
+    this.getGithubName = this.getGithubName.bind(this);
+    this.analyzeCode = this.analyzeCode.bind(this);
+
+    this.getGithubName();
 
     // reset the container to 0
     $('.container').css("margin", 0);
@@ -81,13 +87,57 @@ class Editor extends React.Component {
     });
   }
 
+  getGithubName() {
+    // you'd use this to get the github id on the session
+    $.ajax({
+      method: 'GET',
+      url: 'http://localhost:8080/auth/github_user',
+      success: (data) => {
+        var x = JSON.stringify(data);
+        var userIndex = x.search(/username/) + 13;
+        var profileIndex = x.search(/profileUrl/);
+        var sliced = x.slice(userIndex,profileIndex);
+        var slicedIndex = (/[\W]/g).exec(sliced);
+        var final = sliced.slice(0, slicedIndex.index);
+        this.setState({
+          github: final
+        });
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    })
+
+  }
+
+  analyzeCode() {
+    $.ajax({
+      method: 'POST',
+      data: {code: this.state.text },
+      url: 'http://localhost:4000/api/analytics/' + this.state.github + '/' + this.state.current_question,
+      success: (data) => {
+        console.log('success in sending to analytics');
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    })
+  }
+
   testCode() {
     $.ajax({
       method: 'POST',
       url: 'http://localhost:8080/api/replservice/testcode',
       data: {code: this.state.text, name: this.state.current_question},
       success: (data) => {
-        console.log('data is: ', data);
+        console.log('value for data is: ', data);
+        var val = JSON.parse(data);
+        console.log('val value is: ', val);
+        if(val.failedTests.length === 0) {
+          // call another fn 
+          console.log('entering into the success');
+          this.analyzeCode();
+        }
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus, errorThrown, jqXHR);

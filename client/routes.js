@@ -13,6 +13,7 @@ import ChallengeForm from './app/Admin/ChallengeForm.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Blog from './app/blog-component/blog.jsx';
 import Blogger from './app/blog-component/blogger.jsx';
+import Profile from './app/Profile.jsx';
 
 // an admin page
 import BlogCreator from './app/blog-component/blog-creator/blog-creator.jsx';
@@ -57,6 +58,7 @@ export default <Route path="/" component={App}>
       <Route path ="create-blog" component={BlogCreator} />
       <Route path ="splash" component = {ChallengeSplash} />
       <Route path ="howitworks" component = {How} />
+      <Route path ="profile/:username" component ={Profile} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 // ReactDOM.render( routes , document.getElementById('app'));

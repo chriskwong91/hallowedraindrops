@@ -14,8 +14,8 @@ module.exports = (results, username, question) => {
 	}
 
 	// add items into the db
-	functionalityDB(results.functionality, username, question);
-	jsDB(results.knowledge, username, question);
-	generalDB(results.general, username, question);
-	readabilityDB(results.readability, username, question);
+	functionalityDB.addToDb(results.functionality, username, question);
+	jsDB.addToDb(results.knowledge, username, question);
+	generalDB.addToDb(results.general, username, question);
+	readabilityDB.addToDb(results.readability, username, question);
 }

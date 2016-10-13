@@ -36,7 +36,7 @@ module.exports = (req, username, problem) => {
 	return parserResults = {
 		general: general,
 		knowledge: knowledge,
-		readability: readability,
+		readability: readability.parser,
 		functionality: functionality,
 	};
 };

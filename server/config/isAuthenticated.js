@@ -4,6 +4,7 @@ module.exports = {
   user: (req, res, next) => {
     if (req.isAuthenticated()) {
       console.log('Authenticated!');
+      console.log('authenticated req is:', req);
       next();
       return;
     }
