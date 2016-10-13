@@ -41,7 +41,7 @@ class TestingLayout extends React.Component{
   //   </Col>
   // </Row>
   render() {
-    var body = <img src='http://searchengineland.com/figz/wp-content/seloads/2012/04/penguin.jpg' />
+    var body = <div><h1>Put ScreenShot Here?</h1><img src='http://searchengineland.com/figz/wp-content/seloads/2012/04/penguin.jpg' /></div>
     return (
       <div>
 
@@ -49,12 +49,12 @@ class TestingLayout extends React.Component{
           <h3>Tests</h3><Modal title={'Example Tests'} body={body}/>
         </div>
 
-        <div className='container'>
-          <p className='test-label col-md-2'>Snippet</p>
-          <p className='test-label col-md-2'>Method</p>
-          <p className='test-label col-md-2'>Answer</p>
-        </div>
         <form>
+          <div className='container'>
+            <p className='test-label col-md-2'>Snippet</p>
+            <p className='test-label col-md-2'>Method</p>
+            <p className='test-label col-md-2'>Answer</p>
+          </div>
           {this.state.tests.map((test) => (
             test
             ))}
