@@ -1,11 +1,11 @@
 import React from 'react';
-import MyEditor from './Editor.jsx'
 import Modal from './exampleModal.jsx'
 
 //Other Components
 import Navigation from '../Admin/AdminNavigation.jsx';
 import ChallengePrompt from '../Admin/ChallengePrompt.jsx';
 import ChallengeInfoComp from '../Admin/ChallengeInfo.jsx';
+import TestEntry from '../Admin/TestEntry.jsx';
 
 import store from '../store/index';
 let state = store.getState;
@@ -20,9 +20,9 @@ class ChallengeTechnical extends React.Component {
     <div>
       <Navigation> </Navigation>
       <div className='row jumbotron challenge-info'>
-        <h1 className="blog-selection-header">Enter Challenge Information.</h1>
+        <h1 className="blog-selection-header">Create Tests and Answers.</h1>
       </div>
-      <ChallengeInfoComp />
+      <TestEntry />
       <div className='col-md-6 col-md-offset-3'>
         <label htmlFor="comment" className='challenge-label'>Prompt: </label>
         <Modal />
@@ -30,7 +30,7 @@ class ChallengeTechnical extends React.Component {
       </div>
       <div className="challenge-splash-supporting row">
         <div className="col-md-4 col-md-offset-4">
-          <a href="#" className="challenge-start"><div className="challenge-footer">Next Step</div></a>
+          <a href="#" className="challenge-start"><div className="challenge-footer">Submit</div></a>
         </div>
       </div>
 

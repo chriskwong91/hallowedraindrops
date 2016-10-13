@@ -124,6 +124,7 @@ class TestEntry extends React.Component{
   }
 
   render() {
+    console.log(store.getState());
     return (
       <div className="form-group">
         <div className="form-group">
