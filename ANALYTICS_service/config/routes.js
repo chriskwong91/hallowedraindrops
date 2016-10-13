@@ -23,7 +23,7 @@ module.exports = (app) => {
 			res.send(200);
 		}) 
 		.post((req, res) => { 
-
+			console.log('req value is: ', req);
 			// ex is: /api/analytics/brian/1234
 			var url = req.url;
 
@@ -39,6 +39,7 @@ module.exports = (app) => {
 			// parsed-results is an object with 4 keys
 			var parsed_results = parser(req.body);
 
+			console.log('value for parsed_results is: ', parsed_results);
 			// adds all items into our db
 			addtodb(parsed_results, username, question);
 

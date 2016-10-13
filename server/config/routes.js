@@ -29,10 +29,19 @@ module.exports = (app, io) => {
     }
   );
 
+  app.get('/auth/github_user/', (req, res, next) => {
+    // console.log('value for sessis: ', req._passport.session.user);
+    console.log('value for req is: ', req.sessionStore.sessions);
+
+    res.send(req.sessionStore.sessions);
+  })
+
   app.get('/auth/github/callback',
     passport.authenticate('github', {failureRedirect: '/'}),
     (req, res) => {
-      console.log('entered into the auth/github/callback');
+      req._passport.user;
+      // code here works
+      // console.log('req.user has the value: ',req._passport.session.user);
       res.redirect('/');
     });
 

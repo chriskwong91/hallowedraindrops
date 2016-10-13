@@ -1,7 +1,7 @@
 // Utility that is called within parser.js that provides readability scores
 
 module.exports = (code, parser) => {
-
+	console.log('value for code is: ', code);
 	// variables needed below
 	var len = code.length;
 	var numComments = 0;
@@ -177,6 +177,7 @@ module.exports = (code, parser) => {
 		parser: parser,
 	}
 
+	console.log('value for obj that is being passed back');
 	return obj;
 
 };

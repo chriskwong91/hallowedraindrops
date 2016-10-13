@@ -19,7 +19,7 @@ module.exports = {
   suite: 'http://localhost:1337/api/test',
   testing: 'http://localhost:1337/db/test',
   REPL: 'http://localhost:3000/api/repl',
-  Analytics: 'http://localhost:1337/api/analytics',
+  Analytics: 'http://localhost:4000/api/analytics',
   // Testing: 'http://localhost:1337/db/test',
   create_namespace: function(path, io){
   	var nsp = io.of(path);
