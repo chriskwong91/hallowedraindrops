@@ -85,10 +85,10 @@ div.home-works {
 /* Styles for the Editor */
 #editor {
     /*padding-top: 30px;*/
-    height: 970px; /* set to the height of macbook pro 13" */
-    padding-right:65px;
-    padding-left: 0;
-    width: 830px;
+    height: 100%;
+    /*padding-right:65px;*/
+    /*padding-left: 0;*/
+    width: 100%;
     /*max-width: 50%;*/
     /*background-color: #ccc;*/
 }
@@ -107,7 +107,7 @@ div#console.home-console {
 }
 
 div.home-editor #editor {
-    padding-left: 0;
+    height:400px;
 }
 
 div.container {
@@ -152,7 +152,7 @@ ul.nav.nav-tabs.navbar-nav {
 }
 
 div.home-console {
-    float : right;
+    width: 100%;
 }
 
 div.home-editor {
@@ -176,6 +176,7 @@ div.home-editor {
 
 div#console-terminal-editor.home-console {
     background-color: #303840;
+    width: 100%;
 }
 /* The inner console element. */
 .jqconsole {
@@ -606,4 +607,8 @@ pre {
 
 .hide {
     display: none;
+}
+
+#editor-container {
+    width: 100%;
 }

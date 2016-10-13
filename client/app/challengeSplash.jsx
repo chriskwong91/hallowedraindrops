@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Navigation from './Navigation.jsx';
+import Navigation from './navigation.jsx';
 
 class ChallengeSplash extends React.Component {
 

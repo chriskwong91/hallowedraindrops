@@ -30,10 +30,9 @@ if(!module.parent) {
   });
 }
 var io = require('socket.io')(server);
-require('./config/routes.js')(app, io);
-
+require('./config/routes.js').routes(app, io);
+services.setPairingListeners(io);
 
 module.exports = {
   app: app
 };
-

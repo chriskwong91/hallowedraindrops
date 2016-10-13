@@ -12,6 +12,8 @@ import Grid from 'react-bootstrap/lib/Grid.js';
 import Row from 'react-bootstrap/lib/Row.js';
 import Col from 'react-bootstrap/lib/Col.js';
 import jqconsole from '../jqconsole.js';
+var main_socket;
+var client_id = chance.string({length:5, pool:'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'});
 
 
 
@@ -19,20 +21,20 @@ var Promise = require('bluebird');
 
 class Editor extends React.Component {
 
-	constructor(props) {
-	  super(props);
-	  this.state = {
-	    text: "console.log('hello world')", // text is going to be the code the user inputs
-	    outputText: [],
-	    sidebar: false,
-	    question: '',
-	    auth: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: "console.log('hello world')", // text is going to be the code the user inputs
+      outputText: [],
+      sidebar: false,
+      question: '',
+      auth: false,
       console: null,
       current_question: ''
-	  };
-	}
+    };
+  }
 
-	componentDidMount() {
+  componentDidMount() {
     this.editor = this.editorSetup();
     this.socket = this.setupSocket();
     this.editor.setValue(this.state.text);
@@ -43,6 +45,7 @@ class Editor extends React.Component {
     this.sendCode = this.sendCode.bind(this);
     this.testCode = this.testCode.bind(this);
     this.startConsole = this.startConsole.bind(this);
+    this.pairMe = this.pairMe.bind(this);
     this.sidebar();
     this.startConsole();
 
@@ -92,10 +95,22 @@ class Editor extends React.Component {
     });
   }
 
+  pairMe() {
+    console.log('pairme');
+    main_socket.emit('message', {
+      client_id: client_id
+    });
+  }
+
   // setupSocket will emit the events when the keydown event occurs
   // there is a problem here... where we are transmitting every key
   setupSocket() {
     var socket = io(window.location.pathname.split('editor')[1]); // FIX ME
+    main_socket = io();
+    main_socket.on(client_id, (data) => {
+      console.log(data.namespace);
+      window.location.pathname = '/editor' + data.namespace;
+    });
     var text = this.editor.getValue();
     this.setState({
       text: text
@@ -127,21 +142,9 @@ class Editor extends React.Component {
       var finalMsg = msg.slice(2, msg.length);
       var finalMsg = finalMsg.substring(0, finalMsg.length - 3);
 
-      // var output = [];
-      // msg.split('\n').forEach((line) => {
-      //   output.push(line);
-      // });
-
-      // this.setState({
-      //   outputText: output
-      // });
-
       // write into the output console
       // note that it's expecting a string
       this.state.console.Write(finalMsg + '\n', 'my-output-class');
-
-
-      // $('.response').append(msg);
     });
 
     return socket;
@@ -158,6 +161,7 @@ class Editor extends React.Component {
     editor.setHighlightActiveLine(false); // sets line highlighting
     document.getElementById('editor').style.fontSize='13px'; // sets the font-size
     editor.getSession().setUseWrapMode(true);
+    editor.setShowPrintMargin(false);
     editor.resize();
 
     return editor;
@@ -216,27 +220,55 @@ class Editor extends React.Component {
     this.editor.setValue(question.prompt);
     this.setState({current_question: question.name});
   }
+
 	render () {
 
     return (
-    	<div>
-    	<Navigation sidebar={this.sidebar} sendcode={this.sendCode} testcode={this.testCode}></Navigation>
+    	<div className="container-fluid">
+      	<Navigation sidebar={this.sidebar} sendcode={this.sendCode} testcode={this.testCode} pairme={this.pairMe} ></Navigation>
 	    	<div id="wrapper">
 	    		<Sidebar pasteCode={this.pasteCode.bind(this)}></Sidebar>
-	        <div id="page-content-wrapper">
-	        	<Grid>
-		        	<Row className="home-editor">
-		        			<div id="editor" className="home-editor" onKeyUp={this.handleKeyPress.bind(this)}></div>
-		        	</Row>
-		        	<Row className="home-console">
-		        			<Output output={this.state.outputText} console={this.state.console}></Output>
-		      		</Row>
-	      		</Grid>
-		      </div>
-		    </div>
-	    </div>
+          <div className="container" id="editor-container">
+            <div className="col-sm-12 col-md-6">
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Editor</h3>
+                </div>
+                <div className="panel-body">
+                  <div id="editor" className="-editor"> </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-12 col-md-6">
+              <div className="panel">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Editor</h3>
+                </div>
+
+                <div className="panel-body">
+                  <div className="home-editor">
+                    <Output output={this.state.outputText} console={this.state.console}></Output>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 }
 
 export default Editor;
+
+
+// <div id="page-content-wrapper">
+// 	<Grid>
+//   	<div className="home-editor">
+//   			<div id="editor" className="home-editor" onKeyUp={this.handleKeyPress.bind(this)}></div>
+//   	</Row>
+//   	<Row className="home-console">
+//   			<Output output={this.state.outputText} console={this.state.console}></Output>
+// 		</Row>
+// 	</Grid>
+// </div>

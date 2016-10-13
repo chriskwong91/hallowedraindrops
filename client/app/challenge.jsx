@@ -15,16 +15,16 @@ let state = store.getState;
 class MenuWrap extends React.Component {
 	//Sidebar will list questions
 
-	constructor(props) {
-    super(props);
-    this.state = {
-    	hidden: false,
-    	questions: [],
-    	curr: '',
-    	shareCode: 'Copy Pad URL', // text of shareCode
-    	windowLink: '' // link of the window
-  	};
-  }
+    constructor(props) {
+	    super(props);
+	    this.state = {
+	    	hidden: false,
+	    	questions: [],
+	     	curr: '',
+	    	shareCode: 'Copy Pad URL', // text of shareCode
+	    	windowLink: '' // link of the window
+	  	};
+    }
 
   componentDidMount() {
   	this.makeRequest();

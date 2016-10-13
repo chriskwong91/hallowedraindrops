@@ -30,6 +30,7 @@ class Navigation extends React.Component {
 		  			<NavItem onClick={() => this.props.sidebar() }>Prep-Challenges</NavItem>
 		  			<NavItem onClick={() => this.props.sendcode()}>Run Code</NavItem>
 		  			<NavItem onClick={() => this.props.testcode()}>Submit Code</NavItem>
+		  			<NavItem onClick={() => this.props.pairme()}>Pair Me</NavItem>
 					</Nav>
 					<Nav bsStyle="tabs" pullRight>
 						<NavItem pullRight>Profile Details</NavItem>
