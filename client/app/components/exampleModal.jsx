@@ -42,10 +42,10 @@ class ModalExample extends React.Component {
         <Modal size='modal-lg' isOpen={this.state.isOpen} onRequestHide={this.hideModal}>
           <ModalHeader>
             <ModalClose onClick={this.hideModal}/>
-            <ModalTitle>Challenge Prompt Example</ModalTitle>
+            <ModalTitle>{this.props.title}</ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <pre id='pre' rows='20' className='pre-scrollable'>{"/**\n * Write a function that, given a string, Finds the longest run of identical\n * characters and returns an array containing the start and end indices of\n * that run. If there are two runs of equal length, return the first one.\n * For example:\n *\n *   longestRun(\"abbbcc\") // [1, 3]\n *   longestRun(\"aabbc\")  // [0, 1]\n *   longestRun(\"abcd\")   // [0, 0]\n *   longestRun(\"\")       // [0, 0]\n *\n * Try your function with long, random strings to make sure it handles large\n * inputs well.\n */\n\nvar longestRun = function (string) {\n  // TODO: Your code here!\n };"}</pre>
+            {this.props.body}
           </ModalBody>
           <ModalFooter>
             <button className='btn btn-default' onClick={this.hideModal}>

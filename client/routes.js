@@ -43,8 +43,9 @@ export default <Route path="/" component={App}>
       <Route path ="create-blog" component={BlogCreator} />
       <Route path ="splash" component = {ChallengeSplash} />
       <Route path ="howitworks" component = {How} />
-      <Route path ="/splash/info" component = {ChallengeInfo} />
-      <Route path ="/splash/technical" component = {ChallengeTechnical} />
+      <Route path ="/challenge/splash" component = {ChallengeSplash} />
+      <Route path ="/challenge/info" component = {ChallengeInfo} />
+      <Route path ="/challenge/technical" component = {ChallengeTechnical} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 

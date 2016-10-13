@@ -33,7 +33,7 @@ class ChallengeSplash extends React.Component {
 				<br/>
 				<div className="challenge-splash-supporting row">
 					<div className="col-md-4 col-md-offset-4">
-						<Link to="/splash/info" className="challenge-start"><div className="challenge-footer">Start</div></Link>
+						<Link to="/challenge/info" className="challenge-start"><div className="challenge-footer">Start</div></Link>
 					</div>
 				</div>
 			</div>

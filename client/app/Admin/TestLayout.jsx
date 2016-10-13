@@ -1,6 +1,7 @@
 import React from 'react';
 import ChallengeInfo from './ChallengeInfo.jsx';
 import TestEntry from './TestEntry.jsx';
+import Modal from '../components/exampleModal.jsx'
 
 //React Bootstrap
 import PageHeader from 'react-bootstrap/lib/PageHeader.js';
@@ -18,7 +19,7 @@ class TestingLayout extends React.Component{
 
     //This state is used to map the individual test on the screen
     this.state = {
-      tests: [],
+      tests: [<TestEntry key={0} num={0}/>],
     };
   }
 
@@ -34,30 +35,34 @@ class TestingLayout extends React.Component{
     });
   }
 
+  // <Row>
+  //   <Col sm={6} md={12}>
+  //     <ChallengeInfo />
+  //   </Col>
+  // </Row>
   render() {
+    var body = <img src='http://searchengineland.com/figz/wp-content/seloads/2012/04/penguin.jpg' />
     return (
       <div>
-        <Row>
-          <Col sm={6} md={12}>
-            <ChallengeInfo />
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={6} md={12}>
-            <h3>Add a test case:</h3>
-            <div className='container'>
-            <p className='col-xs-2'>Snippet</p>
-            <p className='col-xs-2'>Method</p>
-            <p className='col-xs-2'>Answer</p>
-            </div>
-            <form>
-              {this.state.tests.map((test) => (
-                test
-                ))}
-            </form>
-            <button onClick={this.handleNewTest.bind(this)} type="button" className="btn btn-outline-primary">Add Another Test</button>
-          </Col>
-        </Row>
+
+        <div>
+          <h3>Tests</h3><Modal title={'Example Tests'} body={body}/>
+        </div>
+
+        <div className='container'>
+          <p className='test-label col-md-2'>Snippet</p>
+          <p className='test-label col-md-2'>Method</p>
+          <p className='test-label col-md-2'>Answer</p>
+        </div>
+        <form>
+          {this.state.tests.map((test) => (
+            test
+            ))}
+        </form>
+        <button onClick={this.handleNewTest.bind(this)} type="button" className="btn btn-default">
+          <span className='glyphicon glyphicon-plus'></span>
+        </button>
+
       </div>
     );
   }

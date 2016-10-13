@@ -604,6 +604,32 @@ div.how-header {
 }
 
 
+.test-label {
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 100px;
+}
+
+.test-entry {
+    margin: 5px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 100px;
+}
+
+.challenge-submit {
+    background-color: #de7c00;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: 100px;
+}
+
 /* admin */
 #formSpace {
     margin-top: 90px;

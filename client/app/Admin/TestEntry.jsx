@@ -126,13 +126,13 @@ class TestEntry extends React.Component{
   render() {
     console.log(store.getState());
     return (
-      <div className="form-group">
-        <div className="form-group">
+      <div className="row">
+        <div className="test-entry">
           <div className="col-xs-4">
             <input className="form-control" onChange={this.handleSnippet.bind(this)} type="text" placeholder="fn(arguments)" id="snippet"/>
           </div>
         </div>
-        <div className="form-group">
+        <div className="test-entry">
           <div className='col-xs-4'>
             <select onChange={this.handleMethod.bind(this)}className="form-control" id="method">
               <option></option>
@@ -140,7 +140,7 @@ class TestEntry extends React.Component{
             </select>
           </div>
         </div>
-        <div className="form-group">
+        <div className="test-entry">
           <div className="col-xs-4">
             <input className="form-control" onChange={this.handleAnswer.bind(this)} type="text" placeholder="4" id="answer"/>
           </div>

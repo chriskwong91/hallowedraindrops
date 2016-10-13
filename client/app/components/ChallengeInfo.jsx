@@ -16,6 +16,8 @@ class ChallengeInfo extends React.Component {
   }
 
   render() {
+    var exampleBody = "/**\n * Write a function that, given a string, Finds the longest run of identical\n * characters and returns an array containing the start and end indices of\n * that run. If there are two runs of equal length, return the first one.\n * For example:\n *\n *   longestRun(\"abbbcc\") // [1, 3]\n *   longestRun(\"aabbc\")  // [0, 1]\n *   longestRun(\"abcd\")   // [0, 0]\n *   longestRun(\"\")       // [0, 0]\n *\n * Try your function with long, random strings to make sure it handles large\n * inputs well.\n */\n\nvar longestRun = function (string) {\n  // TODO: Your code here!\n };"
+    var body = <pre id='pre' rows='20' className='pre-scrollable'>{exampleBody}</pre>
     return (
     <div>
       <Navigation> </Navigation>
@@ -25,12 +27,12 @@ class ChallengeInfo extends React.Component {
       <ChallengeInfoComp />
       <div className='col-md-6 col-md-offset-3'>
         <label htmlFor="comment" className='challenge-label'>Prompt: </label>
-        <Modal />
+        <Modal title={'Challenge Prompt Example'} body={body} />
         <ChallengePrompt />
       </div>
       <div className="challenge-splash-supporting row">
         <div className="col-md-4 col-md-offset-4">
-          <Link to="/splash/technical" className="challenge-start"><div className="challenge-footer">Next Step</div></Link>
+          <Link to="/challenge/technical" className="challenge-start"><div className="challenge-footer">Next Step</div></Link>
         </div>
       </div>
 
