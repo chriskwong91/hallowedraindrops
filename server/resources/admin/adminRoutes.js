@@ -13,6 +13,7 @@ adminRouter.route('/challenge/*')
     adminController.getQuestion(req, res);
   })
   .post((req, res, next) => {
+    console.log('post to challenge');
     //addTest commented out as it is not implemented
     adminController.addQuestion(req, res, () => {
       adminController.addTest(req, res, () => {

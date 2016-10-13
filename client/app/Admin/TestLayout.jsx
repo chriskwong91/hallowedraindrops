@@ -46,7 +46,7 @@ class TestingLayout extends React.Component{
       <div>
 
         <div>
-          <h3>Tests</h3><Modal title={'Example Tests'} body={body}/>
+          <h3>Test Cases</h3><Modal title={'Example Tests'} body={body}/>
         </div>
 
         <form>
