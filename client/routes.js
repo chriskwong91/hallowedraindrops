@@ -17,6 +17,8 @@ import Blogger from './app/blog-component/blogger.jsx';
 // bootstrap: https://medium.com/@victorleungtw/how-to-use-webpack-with-react-and-bootstrap-b94d33765970#.yd8htlxw0
 import ChallengeSplash from './app/challengeSplash.jsx';
 
+import How from './app/howItWorks.jsx';
+
 //*********** We need an App.jsx
 
 import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
@@ -50,6 +52,7 @@ export default <Route path="/" component={App}>
       <Route path ="blog" component={Blog} />
       <Route path ="blog/:bloggername" component={Blogger} />
       <Route path ="splash" component = {ChallengeSplash} />
+      <Route path ="howitworks" component = {How} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 // ReactDOM.render( routes , document.getElementById('app'));

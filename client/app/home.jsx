@@ -42,23 +42,14 @@ class Home extends React.Component {
 
 	// whatever link they added in, throw in a post request with the id
 
-	// *may need a promise
-	// 1. user wants to create a pad
-	// 2. we give client back a unique pad_ID key
-	// 3. with that unique pad_ID key, we move them to that page
-	// 4. on our server side, we catch that route and then send them the pad.html using res.render
-	// 5. then for that specific route, we will serve
 
-/* Note: the blog will only be temporarily here..*/
 	render() {
 		return (
 			<div>
 				<Jumbotron className="banner">
 					<span className="banner-text">codedrop</span>
 
-					<div>
-						<Link className="home-terminal" to="/blog">Blog (temporary)</Link>
-					</div>
+					
 
 				</Jumbotron>
 
@@ -76,12 +67,14 @@ class Home extends React.Component {
 							</Col>
 							<Col md={1} mdPush={5} className="vcenter">
 								<div className="home-selection">
-									 <span className="home-terminal" onClick={this.setPad}><Link>      >_</Link></span>
+									 <span className="home-terminal" onClick={this.setPad}><Link>  >_</Link></span>
 								</div>
+								
 								{this.props.children}
 							</Col>
 						</Row>
 					</Grid>
+					<a className="a-home" href="/howitworks"><div className="home-works">How does it work?</div></a>
 				</div>
 			</div>
 		)
