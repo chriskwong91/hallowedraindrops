@@ -79,9 +79,21 @@ class ChallengeTechnical extends React.Component {
   pasteConsole(data) {
     var passed = data.passedTests;
     var failed = data.failedTests;
+    var passes = passed.length;
+    var fails = failed.length;
 
-    console.log(passed, 'passed');
-    console.log(failed, 'failed');
+    if (!failed.length) {
+      var pass = 'All Tests Passed! \n Challenge has been added to the database';
+      this.state.console.Write(pass + '\n', 'my-output-class');
+    } else {
+      var fail = 'Oh No! ' + fails.toString() + ' out of ' + (passes + fails).toString() +  ' tests did not pass! \n\n';
+
+      failed.forEach((test) => {
+        fail += 'Test #' + test.order_counter.toString() + ' failed!\n';
+        fail += test.errs.message + "\n\n";
+      });
+      this.state.console.Write(fail + '\n', 'my-output-class');
+    }
 
   }
 
