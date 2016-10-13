@@ -19,6 +19,7 @@ class MenuWrap extends React.Component {
     super(props);
     this.state = {
     	hidden: false,
+    	questions: [],
     	curr: '',
     	shareCode: 'Copy Pad URL', // text of shareCode
     	windowLink: '' // link of the window

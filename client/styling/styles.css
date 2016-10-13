@@ -52,6 +52,36 @@ body {
   }
 }
 
+/* Styles for the home page */
+div.banner-bottom#home-bottom{
+    background-color: rgb(35, 170, 253);
+    padding-top: 100px;
+    /*margin-top: 200px;*/
+    padding-bottom: 100px;
+}
+
+.home-desc {
+    font-family: SourceSansPro;
+    font-weight: 100;
+    font-size: 25px;
+    color: white;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+div.home-works {
+    font-family: SourceSansPro;
+    font-weight: 900;
+    font-style: bold;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    margin-top: 100px;
+    background-color: #de7c00;
+    color: white;
+}
+
 /* Styles for the Editor */
 #editor {
     /*padding-top: 30px;*/
@@ -222,8 +252,45 @@ div.jumbotron {
 
 .home-terminal {
 	font-size: 50px;
+    /*background-color: black;*/
+    /*color: #fff;*/
+    margin-bottom: 100px;
 	/*padding-top: 10px;*/
 }
+
+.a-home:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.home-selection:hover {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.home-terminal-space {
+    background-color: #fff;
+}
+
+.blink-terminal {
+    width: 27.5px;
+    height: 59px;
+    background-color: black;
+    float: right;
+}
+.brown-terminal {
+    width: 27.5px;
+    height: 59px;
+    background-color: brown;
+    float: left;
+    /*overflow: hidden;*/
+}
+
+.terminal-wrapper {
+    overflow: hidden;
+    width: 55px;
+}
+
 /* vertically-align the github and terminal icons on the home-page*/
 .vcenter {
     display: inline-block;
@@ -236,8 +303,6 @@ div.jumbotron {
     z-index: -999;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 /** BLOG STYLES **/
 
@@ -429,8 +494,101 @@ textarea.form-control.blog-selection-bootcamp.exp {
 .blog-profile-example {
     font-style: italic;
 }
+/* splash page styles */
+.challenge-splash-jumbo {  
+    /*nothing yet*/
+}
 
+div.challenge-footer {
+    background-color: #de7c00;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: 100px;
 
+}
+
+.challenge-splash-supporting {
+    font-family: SourceSansPro;
+    font-weight: 100px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.challenge-sub {
+    font-style: italic;
+}
+
+a.challenge-start:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* How it works page */
+div.how-header {
+    text-align: center;
+    padding-top: -50px;
+    background-image: url(./img/code-guy.jpg);
+    font-size: 50px;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    font-style: bold;
+}
+
+.how-left {
+    background-color: white;
+}
+
+.how-bottom {
+    /*padding-top: 200px;*/
+    padding-right: 300px;
+    padding-left: 300px;
+}
+
+.how-desc {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    font-family: SourceSansPro;
+    font-weight: 100px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.how-desc-bott {
+    padding-right: 300px;
+    padding-left: 300px;
+}
+
+.how-links {
+    text-align: center;
+    color: #000000;
+}
+
+.how-left {
+    background-color: #de7c00;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: 100px;
+}
+
+.how-right {
+    background-color: #660066;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: 100px;
+}
 
 
 /* admin */
