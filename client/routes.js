@@ -54,7 +54,7 @@ export default <Route path="/" component={App}>
       <Route path ="blog/:bloggername" component={Blogger} />
       <Route path ="splash" component = {ChallengeSplash} />
       <Route path ="howitworks" component = {How} />
-      <Route path ="profile/:username" = component ={Profile} />
+      <Route path ="profile/:username" component ={Profile} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 // ReactDOM.render( routes , document.getElementById('app'));
