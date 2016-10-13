@@ -16,6 +16,7 @@
     "start": "nodemon server/server.js REPL_service/REPL_server.js Testing_service/testing_service.js",
     "lint": "grunt eslint",
     "post-install": "curl -s https://raw.githubusercontent.com/hackreactor-labs/pomander/master/bin/install | bash",
+    "postinstall": "webpack -p",
     "dev": "webpack -d --watch",
     "build": "webpack -p"
   },
