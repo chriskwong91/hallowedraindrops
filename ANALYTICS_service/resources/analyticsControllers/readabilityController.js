@@ -23,5 +23,18 @@ module.exports = {
 				// callback(data);
 			});
 		});
+	},
+
+	getFromDb: (req, res, username) => {
+		Readability.sync().then(() => {
+			return Readability.find({where: {U_ID: username}}).then((item) => {
+				if(!item) {
+					res.status(404).send('Question not found');
+				} else {
+					console.log('value for item is:', item);
+					res.send(item); // sends back data
+				}
+			})
+		});
 	}
 }

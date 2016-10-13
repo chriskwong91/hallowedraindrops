@@ -23,5 +23,17 @@ module.exports = {
 				// callback(data);
 			});
 		});
+	},
+
+	getFromDb: (req, res, username) => {
+		General.sync().then(() => {
+			return General.find({where: {U_ID: username}}).then((question) => {
+				if(!question) {
+					res.status(404).send('Question not found');
+				} else {
+					res.send(question); // sends back data
+				}
+			})
+		});
 	}
 }

@@ -26,4 +26,15 @@ module.exports = {
 	},
 
 	// getFromDb:
+	getFromDb: (req, res, username) => {
+		Functionality.sync().then(() => {
+			return Functionality.find({where: {U_ID: username}}).then((question) => {
+				if(!question) {
+					res.status(404).send('Question not found');
+				} else {
+					res.send(question); // sends back data
+				}
+			})
+		});
+	}
 }
