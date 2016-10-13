@@ -2,6 +2,8 @@
 var blogRouter = require('express').Router();
 var blogController = require('./blogController.js');
 
+var blogCache = {};
+
 /* use this route for getting the user's information to display for blog*/
 blogRouter.route('/get/')
 	.get((req, res, next) => {
@@ -11,17 +13,30 @@ blogRouter.route('/get/')
 /* use this route for adding in user's information to display for blog */
 blogRouter.route('/post')
 	.post((req, res, next) => {
-		var authUser = req._passport.instance._userProperty;
-		console.log('value for authuser is: ', req._passport.instance);
-		console.log('value for req.sessions in blogRoutes.js is: ', req.session);
-		console.log(req.user);
-		// if(authUser === 'user') {
-		// 	res.status(400).send('re-authenticate with github please!'); // tell them they need to re-auth with github
-		// } else {
-		// 	blogController.addContent(req, res);
-		// }
-
+		blogController.addContent(req, res);
 	});
+
+blogRouter.route('/getall')
+	.get((req, res, next) => {
+		blogController.getAllContent(req, res);
+	});
+
+blogRouter.route('/getallgithub')
+	.get((req, res, next) => {
+		blogController.getAllGithub(req, res);
+	});
+
+blogRouter.route('/getgithub/:githubuser')
+	.get((req, res, next) => {
+		console.log('req.url value is: ', req.url);
+		blogController.getGithubUser(req, res);
+	});
+
+blogRouter.route('/getblog/:githubuser')
+	.get((req, res, next) => {
+		console.log('entered into github user');
+		/* need a helper fn added inside here */
+	})
 
 module.exports = blogRouter;
 

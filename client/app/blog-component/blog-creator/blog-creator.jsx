@@ -63,7 +63,7 @@ class BlogCreator extends React.Component {
 	// need to make a request 
 	componentDidMount() {
 		console.log('the blog-creator component mounted');
-		this.addContent.bind(this); // have the on-click setup
+		this.addContent(); // have the on-click setup
 	}
 
 	submitToDB() {
@@ -102,7 +102,7 @@ class BlogCreator extends React.Component {
     this.setState({
     	completed_user_content: returnObj
     });
-
+    console.log('value for content is: ', this.state.completed_user_content);
     this.submitToDB();
 	}
 

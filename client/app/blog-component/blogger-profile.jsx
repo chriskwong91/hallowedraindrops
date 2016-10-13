@@ -9,22 +9,44 @@ class BloggerProfile extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			// backgroundUrl: 
+			user: '',
+			github: []
 		}
 	}
 
 	componentDidMount () {
-
+		this.getUrl();
+		this.getGithub();
 	}
 
-	// need to make a pull from github or something
-	// all of these items should be within our props (?)
-	// image comes in as avatar_url: https://avatars.githubusercontent.com/u/5092263?v=3
-	// url: 
+	getUrl() {
+		var url = window.location.pathname.slice(6, window.location.pathname.length);
+		setTimeout(() => {
+			this.setState({
+				user: url
+			});
+			this.getGithub();
+			console.log('state for this.state.user is: ', this.state.user);
+		}, 1000)
+	}
 
-	// need to find a better way to display their image....
-	// <Image src="https://www.hackreactorconnect.com/assets/photos/1469481559380.jpg" circle responsive width={64} height={64}/>
-// width={64} height={64}
+	getGithub() {
+		console.log('making request to: ', this.state.user);
+		$.ajax({
+			method: 'GET',
+			url: 'http://localhost:8080/api/blog/getgithub/' + this.state.user,
+			success: (data) => {
+				this.setState({
+					github: data
+				});
+			},
+			error: (jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
+	}
+
+
 
 	/* the div with class 'blogger-banner-img' will be space where they can enter a photo */
 	render () {

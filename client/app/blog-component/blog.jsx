@@ -19,12 +19,65 @@ class Blog extends React.Component {
 		super(props)
 		this.state = {
 			users: ['brianz', 'chris', 'thai'], // the users who have pages
+			allBlogs: [], // blogs is an array
+			allGithub: [],
 		}
 	}
 
 	componentDidMount () {
 		console.log('entered into the blog page');
+		this.getAllBlogs(); // call it for all of the data
+		this.getAllGithub();
+		// items we need are:
+			// github_url
+			// avatar_url
+			// login
 	}
+
+	/* @name: getAllGithub
+	 * @input: n/a
+	 * @output: A call to the DB to get all github data and set into allGithub
+	 */ 
+
+	getAllGithub() {
+		$.ajax({
+			method: 'GET',
+			url: 'http://localhost:8080/api/blog/getallgithub/',
+			success: (data) => {
+				console.log('all blogs have been retrieved: ', data);
+				this.setState({
+					allGithub: data
+				});
+			},
+			error: (jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
+	}
+
+	/* @name: getAllBlogs
+	 * @input: n/a
+	 * @output: A call to the DB to get all Blog data and set into allBlogs
+	 */ 
+
+	getAllBlogs() {
+		/* a fetch to get all blogs from our DB */
+		$.ajax({
+			method: 'GET',
+			url: 'http://localhost:8080/api/blog/getall/',
+			success: (data) => {
+				console.log('all blogs have been retrieved: ', data);
+				this.setState({
+					allBlogs: data
+				});
+			},
+			error: (jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
+		// order them by their number of views
+	}
+
 
 	// this will purely hold all of the links to the blogger pages
 
@@ -52,13 +105,48 @@ class Blog extends React.Component {
 	*/
 
 	render () {
+		// console.log(this.state.allGithub[0][avatar_url]);
 		return (
 			<div className="blog-page">
 				<BlogNavigation></BlogNavigation>
 					<Jumbotron className="banner-blog"></Jumbotron>
 					<h1 className="banner-text-blog">BootCamp Reviews</h1>
 						<Grid>
-							{this.state.users.map((user) => 
+							{this.state.allBlogs.map((user, i) => 
+								<Row>
+									<Col>
+										<Media.List>
+											<a className="blog-selection-link" href={"/blog/" + this.state.allGithub[i]['login']}><Media.ListItem className="blog-selection blog-outline">
+												<Media.Body>
+													<Media.Heading className="blog-selection-header">{user.Q1}</Media.Heading>
+														<span className="blog-selection-bootcamp">{user.name} @ {user.bootcamp}</span>
+														<br/>
+														<br/>
+														<span className="blog-selection-name">{user.self_blurb}</span>
+												</Media.Body>
+												<Media.Right>
+													<Image src={this.state.allGithub[i]['avatar_url']} width={64} height={64} circle/>
+												</Media.Right>
+											</Media.ListItem></a>
+										</Media.List>
+									</Col>
+								</Row>
+							)}
+						</Grid>
+			</div>
+		)
+	}
+
+}
+
+export default Blog;
+
+/*<div className="blog-page">
+				<BlogNavigation></BlogNavigation>
+					<Jumbotron className="banner-blog"></Jumbotron>
+					<h1 className="banner-text-blog">BootCamp Reviews</h1>
+						<Grid>
+							{this.state.blogs.map((user) => 
 								<Row>
 									<Col>
 										<Media.List>
@@ -79,17 +167,4 @@ class Blog extends React.Component {
 								</Row>
 							)}
 						</Grid>
-			</div>
-		)
-	}
-
-}
-
-export default Blog;
-
-// we need 4 components
-// photo
-// questions
-// page
-// user info
-// navbar
+			</div>*/

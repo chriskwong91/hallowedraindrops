@@ -13,39 +13,65 @@
 	views: sequelize.Number,*/
 
 var BlogQuestion = require('../../database/models/BlogQuestions.js');
+var User = require('../../database/models/Users.js');
 
 module.exports = {
+
+	getGithubUser: (req, res) => {
+		var user = req.url;
+		console.log('value for user is: ', user);
+		// User.find({}).then((data) => {
+		// 	console.log('found all github-user information');
+		// 	res.status(200).send(data);
+		// });
+	},
+
+	getAllGithub: (req, res) => {
+		User.findAll({}).then((data) => {
+			console.log('found all github-user information');
+			res.status(200).send(data);
+		});
+	},
+
 	getContent: (req, res) => {
 		var name = req._passport.instance._userProperty;
 		// name is github name on the session
 		BlogQuestion.sync().then(() => {
 			BlogQuestion.find({where: {name: name}})
 			.then((data) => {
-				console.log('item found');
+				console.log('blog content was found, sending back data');
 				res.status(200).send(data);
 			});
 		});
 	},
 
+	getAllContent: (req, res) => {
+		BlogQuestion.findAll({}).then((data) => {
+			res.status(200).send(data);
+		});
+	},
+
 	addContent: (req, res) => {
 		console.log('entered into addContent');
-		var name = req._passport.instance._userProperty; //github name
-		var dataToBeAdded = req.body;
+		var github = req.body.data.github; //github name
+		var dataToBeAdded = req.body.data;
 
-		// given their first name, can we actually get their github?
-		// we can go ahead and pick up the github handle
-		console.log('req.session value is: ', req.session);
-		console.log('req.body value is: ', req.body);
-		// we have the name now
-		// BlogQuestion.sync().then(() => {
-		// 	BlogQuestion.find({where: {name: name}})
-		// 	.then((data) => {
-		// 		if(!data) {
-		// 			BlogQuestion.create();
-		// 		}
-
-		// 	})
-		// })
-
+		BlogQuestion.sync().then(() => {
+			BlogQuestion.find({where: {github: github}})
+			.then((data) => {
+				console.log('data value is: ', data);
+				if(!data) {
+					BlogQuestion.create(dataToBeAdded).then(() => {
+						console.log('entry has been created');
+					});
+				} else {
+					// update if not
+					BlogQuestion.update(dataToBeAdded, {where: {github: github}}).then(() => {
+						console.log('entry has been updated');
+					});
+				}
+				res.status(202).send('addContent is complete')
+			});
+		});
 	}
 }
