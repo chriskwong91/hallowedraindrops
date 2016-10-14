@@ -123,7 +123,7 @@ class MenuWrap extends React.Component {
 						</li>
 						{this.props.questions.map(this.renderQuestion.bind(this))}
 						<li className="sidebar-brand">
-							<a href="/admin/addchallenge">-- add challenge --</a>
+							<a href="/challenge/splash">-- add challenge --</a>
 						</li>
 					</ul>
 				</div>

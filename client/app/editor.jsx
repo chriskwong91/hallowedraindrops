@@ -70,7 +70,6 @@ class Editor extends React.Component {
   // sendCode will take the code on the 'text' state
   // and will be processed on the server
   sendCode() {
-    console.log(this.state);
     $.ajax({
       method: 'POST',
       url: 'http://localhost:8080/api/replservice/runcode',
@@ -154,14 +153,12 @@ class Editor extends React.Component {
     var socket = io(window.location.pathname.split('editor')[1]); // FIX ME
     main_socket = io();
     main_socket.on(client_id, (data) => {
-      console.log(data.namespace);
       window.location.pathname = '/editor' + data.namespace;
     });
     var text = this.editor.getValue();
     this.setState({
       text: text
     });
-
     socket.on('alter text', (msg) => {
       if(this.state.text !== msg) {
         this.setState({
@@ -218,7 +215,6 @@ class Editor extends React.Component {
     this.setState({
       text: text
     });
-
     this.socket.emit('text change', text);
   }
 
@@ -253,8 +249,7 @@ class Editor extends React.Component {
         jqconsole.Prompt(true, function (input) {
         // Output input with the class jqconsole-output.
         jqconsole.Write(input + '\n', 'jqconsole-output');
-        // Restart the prompt.
-        startPrompt();
+        // Restart the prompt.ed
         });
       };
     startPrompt();
@@ -281,14 +276,14 @@ class Editor extends React.Component {
                   <h3 className="panel-title">Editor</h3>
                 </div>
                 <div className="panel-body">
-                  <div id="editor" className="-editor"> </div>
+                  <div id="editor" onKeyUp={this.handleKeyPress.bind(this)}> </div>
                 </div>
               </div>
             </div>
             <div className="col-sm-12 col-md-6">
               <div className="panel">
                 <div className="panel-heading">
-                  <h3 className="panel-title">Editor</h3>
+                  <h3 className="panel-title">Console</h3>
                 </div>
 
                 <div className="panel-body">

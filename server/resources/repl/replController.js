@@ -3,7 +3,8 @@ var request = require('request-promise');
 var service = require('../../config/services.js');
 
 module.exports = {
-  sendCodeToService: (req, res) => {
+  sendCodeToService: (req, res, time) => {
+    console.log('req.body', req.body)
     var options = {
       method: 'POST',
       uri: service.run,
@@ -13,10 +14,12 @@ module.exports = {
     request(options)
       .then((ranCode) => {
         console.log('ran Code, ', ranCode);
+        clearTimeout(time);
         res.send(ranCode);
       })
       .catch((err) => {
         console.error('Error in POST request to REPL service: ', err);
+        clearTimeout(time);
         res.sendStatus(404, err);
       });
   },

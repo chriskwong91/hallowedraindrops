@@ -1,6 +1,7 @@
 var db = require('./database/config.js');
 var Test = require('./database/models/testing.js');
 var _ = require('underscore');
+var utils = require('./utils.js');
 
 var Describe = function(describe) {
   this.description = describe.description;
@@ -21,27 +22,45 @@ module.exports = {
           var newIt = new It({
             snippet: item.snippet,
             method: item.method,
+            description: item.description,
             ans: item.answer
           });
           return newIt;
         });
-    
+
     var dArr = [new Describe({
       itsArr: itsArr
     })];
+
 
     var test = new Test({
       question_name: req.body.name,
       dArr: JSON.stringify(dArr)
     });
 
-    test.save((err, newTest) => {
-      if (err) {
-        res.status(500).json({ error: err });
+
+    utils.newTest(req, res, test, (pass, tests) => {
+      if (pass) {
+        Test.findOne({question_name: req.body.name}).exec((err, found) => {
+          if (err) {
+            res.status(500).json({ error: err });
+          }
+          if (found) {
+            found.question_name = req.body.name;
+            found.dArr = JSON.stringify(dArr);
+            res.json(tests);
+          } else {
+            test.save((err, newTest) => {
+              console.log('New test added to db: ' , newTest);
+              res.json(tests);
+            });
+          }
+        });
+      } else {
+        res.json(tests);
       }
-      console.log('New test added to db: ' , newTest);
-      res.json(newTest);
     });
+
   },
 
   getTest: function(req, res, callback) {

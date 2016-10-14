@@ -15,9 +15,12 @@ module.exports = (app) => {
       res.send('Getting that REPL SERVER');
     })
     .post((req, res) => {
+      console.log(req.body);
       runCode(req.body.code, req.path, (data) => {
         console.log('data', data);
-        res.send(data);
+        if (!res.headerSent) {
+          res.send(data);
+        }
       });
     });
 };

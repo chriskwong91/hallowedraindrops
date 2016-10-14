@@ -1,5 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Link } from 'react-router';
+import store from './store/index.js';
 
 import Navigation from './navigation.jsx';
 import NonCodeNavigation from './NonCodeNavigation.jsx';
@@ -11,6 +13,7 @@ class ChallengeSplash extends React.Component {
 	// Notes:
 	// <p> Devise complex challenges that'll reign supreme among the Community.</p>
 	render() {
+		console.log(store.getState());
 		return (
 			<div>
 				<NonCodeNavigation> </NonCodeNavigation>
@@ -33,7 +36,7 @@ class ChallengeSplash extends React.Component {
 				<br/>
 				<div className="challenge-splash-supporting row">
 					<div className="col-md-4 col-md-offset-4">
-						<a href="#" className="challenge-start"><div className="challenge-footer">Start</div></a>
+						<Link to="/challenge/info" className="challenge-start"><div className="challenge-footer">Start</div></Link>
 					</div>
 				</div>
 			</div>
@@ -41,4 +44,4 @@ class ChallengeSplash extends React.Component {
 	}
 }
 
-export default ChallengeSplash;	
+export default ChallengeSplash;

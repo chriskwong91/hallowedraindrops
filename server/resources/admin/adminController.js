@@ -33,14 +33,15 @@ module.exports = {
       uri: service.testing,
       body: {
         arr: req.body.varArry,
-        name: req.body.question.name
+        name: req.body.question.name,
+        code: req.body.sourceCode
       },
       json: true
     };
     request(options)
       .then((test) => {
         console.log('Test was added');
-        res.send('ok');
+        res.send(test);
         callback(test);
       }).catch((e)=> {
         console.error(e);

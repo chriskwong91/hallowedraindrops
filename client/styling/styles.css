@@ -313,7 +313,7 @@ div.jumbotron {
 }
 
 /* aims to try and remove the button highlighting */
-.btn:focus { 
+.btn:focus {
   outline: none;
 }
 
@@ -376,7 +376,7 @@ div.jumbotron.banner-blog {
     /*padding-left: 300px;*/
     /*padding-right: 300px;*/
     /*background-color: #de7c00;*/
-    text-align: center;    
+    text-align: center;
 }
 
 .blog-selection {
@@ -446,7 +446,7 @@ div.blogger-footer {
     text-align: center;
     color: white;
     font-weight: 100px;
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
 }
 
@@ -496,7 +496,7 @@ textarea.form-control.blog-selection-bootcamp.exp {
     font-style: italic;
 }
 /* splash page styles */
-.challenge-splash-jumbo {  
+.challenge-splash-jumbo {
     /*nothing yet*/
 }
 
@@ -591,6 +591,44 @@ div.how-header {
     font-weight: 100px;
 }
 
+/* challenge info styles */
+.challenge-label {
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 100px;
+}
+
+.challenge-info {
+  margin-bottom: 25px;
+}
+
+
+.test-label {
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 100px;
+}
+
+.test-entry {
+    margin: 5px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 100px;
+}
+
+.challenge-submit {
+    background-color: #de7c00;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: 100px;
+}
 
 /* admin */
 #formSpace {
@@ -683,4 +721,19 @@ span.footer-read-more {
     color: white;
 }
 
+
+/*.console-container {
+position:fixed;
+}*/
+#challenge-console {
+  position: absolute;
+  width: 550px;
+  height: 300px;
+  background-color:black;
+}
+
+.challenge-technical-buttons {
+    position: relative;
+    top: 400px;
+}
 
