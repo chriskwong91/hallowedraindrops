@@ -446,8 +446,55 @@ div.blogger-footer {
     text-align: center;
     color: white;
     font-weight: 100px;
+    cursor: pointer; 
+    cursor: hand;
 }
 
+/* create-blog questions */
+.blog-profile-questions {
+    .padding-left: 300px;
+    .padding-right: 300px;
+}
+
+.blog-bootcamp-questions {
+    /*text-align: center;*/
+}
+
+.blog-selection-example {
+    font-family: SourceSansPro;
+    font-size: 20px;
+    text-align: center;
+
+}
+
+.blog-selection-experience {
+    text-align: center;
+    font-family: SourceSansPro;
+    font-size: 20px;
+}
+
+.blog-selection-bootcamp-header {
+    font-size: 50px;
+    font-family: SourceSansPro;
+    font-weight: 900;
+    text-align: center;
+}
+
+textarea.form-control.profile.blog-selection-bootcamp {
+    width: 800px;
+    font-size: 15px;
+    height: 100px;
+}
+
+textarea.form-control.blog-selection-bootcamp.exp {
+    width: 800px;
+    font-size: 15px;
+    height: 200px;
+}
+
+.blog-profile-example {
+    font-style: italic;
+}
 /* splash page styles */
 .challenge-splash-jumbo {  
     /*nothing yet*/

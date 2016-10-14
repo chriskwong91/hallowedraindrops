@@ -15,56 +15,97 @@ import Col from 'react-bootstrap/lib/Col.js';
 // react-bootstrap elements
 import Jumbotron from 'react-bootstrap/lib/Jumbotron.js';
 
+var Promise = require('bluebird');
+
 class Blogger extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			// empty for now
 			currentPage: 0, // the page in the array
-			users: ['Brian Zhou', 'Chris Wong', 'thai'] // the users who have pages
+			currentUser: '',
+			github: [],
+			blog: [],
+			user: '',
 		}
 	}
 
 	componentDidMount() {
-		console.log('blogger component mounted');
+		this.getUrl();
+
 	}
 
-	// a service that will make a call to the db for that blog profile
-		// should be a sql db
+	/* @name: getUrl
+	 * @input: n/a
+	 * @output: gets url from the window and sends it out
+	 */
 
-	// will pull in data from the database for
-		// the user that's being pulled will be from the url
-			//
+	getUrl() {
+		var url = window.location.pathname.slice(6, window.location.pathname.length);
+		setTimeout(() => {
+			this.setState({
+				user: url
+			});
+			this.getGithub();
+			this.getBlog();
+			console.log('state for this.state.user is: ', this.state.user);
+		}, 1000)
+	}
 
-	/* To-Dos:
-		columns for this page
+	/* @name: getGithub
+	 * @input: n/a
+	 * @output: A call to the DB to get Github data and per User
+	 */
 
-		**Below doesn't work well right now, and it should be inserted within
-			the jumbotron portion
-	<Jumbotron className="banner">
-		<BloggerProfile user={this.state.users[this.state.currentPage]}></BloggerProfile>
-	</Jumbotron>
-<Col md={1} mdPush={5} className="vcenter">
-								<div className="home-selection">
-									<Image src="./styling/img/github-mark-resized.png" circle responsive onClick={this.githubAuth.bind(this)}/>
-								</div>
-							</Col>
+	getGithub() {
+		console.log('making request to: ', this.state.user);
+		$.ajax({
+			method: 'GET',
+			url: 'http://localhost:8080/api/blog/getgithub/' + this.state.user,
+			success: (data) => {
+				this.setState({
+					github: data
+				});
+			},
+			error: (jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
+	}
 
+	/* @name: getBlog
+	 * @input: n/a
+	 * @output: A call to the DB to get Blog data per User
+	 */ 
 
-	*/
+	getBlog() {
+		/* a fetch to get all blogs from our DB */
+		console.log('making request to: ', this.state.user);
+		$.ajax({
+			method: 'GET',
+			url: 'http://localhost:8080/api/blog/getblog/' + this.state.user,
+			success: (data) => {
+				this.setState({
+					blog: data
+				});
+			},
+			error: (jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
+		// order them by their number of views
+	}
 
-// footer link: 				<BloggerFooter></BloggerFooter>
 
 	render () {
-		var user = this.state.users[this.state.currentPage];
 		return (
-			<div className="blogger-font">
+			<div className="blogger-font" id="blog-username" data-username={document.URL}>
 				<BlogNavigation></BlogNavigation>
 				<Grid>
 					<Row>
 						<Col>
-							<BloggerProfile name={user}></BloggerProfile>
-							<BloggerQuestions></BloggerQuestions>
+							<BloggerProfile profile={this.state.github}></BloggerProfile>
+							<BloggerQuestions blog={this.state.blog}></BloggerQuestions>
 						</Col>
 					</Row>
 				</Grid>
@@ -76,11 +117,3 @@ class Blogger extends React.Component {
 
 export default Blogger;
 
-// Could add a Footer that's blue to direct to HR
-
-// we need 4 components
-// photo
-// questions
-// page
-// user info
-// navbar

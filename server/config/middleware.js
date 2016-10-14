@@ -21,7 +21,7 @@ module.exports = (app, express) => {
   app.use(methodOverride());
   app.use(session({secret: 'pizza kitty', resave: false, saveUninitialized: false}));
   app.use(passport.initialize());
-  app.use(passport.session());
+  // app.use(passport.session()); // why are there two of these (?)
 
   require('./auth.js')(passport);
 
