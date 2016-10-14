@@ -44,9 +44,11 @@ class ModalExample extends React.Component {
             <ModalClose onClick={this.hideModal}/>
             <ModalTitle>{this.props.title}</ModalTitle>
           </ModalHeader>
+          <div>
           <ModalBody>
             {this.props.body}
           </ModalBody>
+          </div>
           <ModalFooter>
             <button className='btn btn-default' onClick={this.hideModal}>
               Close

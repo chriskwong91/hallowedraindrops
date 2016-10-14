@@ -6,11 +6,13 @@ const active_cache = {};
 const addToCached = require('./routes.js').addToCached;
 
 module.exports = {
-  run: 'http://localhost:3000/api/repl',
-  suite: 'http://localhost:1337/api/test',
-  testing: 'http://localhost:1337/db/test',
-  REPL: 'http://localhost:3000/api/repl',
-  Analytics: 'http://localhost:4000/api/analytics',
+
+  run: 'https://floating-sierra-53807.herokuapp.com/api/repl',
+  suite: 'https://warm-temple-20798.herokuapp.com/api/test',
+  testing: 'https://warm-temple-20798.herokuapp.com/db/test',
+  REPL: 'https://floating-sierra-53807.herokuapp.com/api/repl',
+  Analytics: 'http://localhost:1337/api/analytics',
+
   create_namespace: (path, io) => {
     console.log('created namespace');
   	var nsp = io.of(path);
@@ -57,10 +59,10 @@ module.exports = {
     //       shift off two clients
     //       create namespace
     //       emit client id with same namespace as second param
-    
+
     //   Client Side:
-    //     on button press emit 
-    //       make client id 
+    //     on button press emit
+    //       make client id
     //       set listener with client id
     //         assign namespace with namespace that is passed in
     //       emit challenge
@@ -68,7 +70,7 @@ module.exports = {
     //         will trigger listener server side
   },
 
-    
+
   addUser: (profile, User, callback)  => {
     User.sync().then(() => {
       console.log('adding user');

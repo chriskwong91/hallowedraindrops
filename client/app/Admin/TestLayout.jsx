@@ -41,7 +41,7 @@ class TestingLayout extends React.Component{
   //   </Col>
   // </Row>
   render() {
-    var body = <div><h1>Put ScreenShot Here?</h1><img src='http://searchengineland.com/figz/wp-content/seloads/2012/04/penguin.jpg' /></div>
+    var body = <div><img className='challengeSS' src='../styling/img/challenge.png' /></div>
     return (
       <div>
 
