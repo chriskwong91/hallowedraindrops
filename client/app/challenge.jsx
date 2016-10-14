@@ -91,8 +91,6 @@ class MenuWrap extends React.Component {
 		  method: 'GET',
 		  url: 'http://localhost:8080/admin/challenge',
 		  success: (data) => {
-		    console.log('data value isdddd: ', data);
-
         store.dispatch(questionsList(data));
 		  },
 		  error: (jqXHR, textStatus, errorThrown) => {

@@ -76,10 +76,9 @@ class Editor extends React.Component {
       url: 'http://localhost:8080/api/replservice/runcode',
       data: {code: this.state.text},
       success: (data) => {
-        console.log('data value is: ', data);
         this.socket.emit('append result', data);
         // $('.response').append(data);
-        console.log('after socket');
+        // console.log('after socket');
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus, errorThrown, jqXHR);
@@ -116,7 +115,7 @@ class Editor extends React.Component {
       data: {code: this.state.text },
       url: 'http://localhost:4000/api/analytics/' + this.state.github + '/' + this.state.current_question,
       success: (data) => {
-        console.log('success in sending to analytics');
+        // console.log('success in sending to analytics');
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus, errorThrown, jqXHR);
@@ -130,12 +129,9 @@ class Editor extends React.Component {
       url: 'http://localhost:8080/api/replservice/testcode',
       data: {code: this.state.text, name: this.state.current_question},
       success: (data) => {
-        console.log('value for data is: ', data);
         var val = JSON.parse(data);
-        console.log('val value is: ', val);
         if(val.failedTests.length === 0) {
           // call another fn 
-          console.log('entering into the success');
           this.analyzeCode();
         }
       },
@@ -146,7 +142,7 @@ class Editor extends React.Component {
   }
 
   pairMe() {
-    console.log('pairme');
+    // console.log('pairme');
     main_socket.emit('message', {
       client_id: client_id
     });

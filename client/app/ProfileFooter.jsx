@@ -19,7 +19,7 @@ class ProfileFooter extends React.Component {
 	render() {
 		return (
 			<div className="profile-footer">
-				<span className="footer-read-more">Back to Practice!</span>
+				<a href="/" className="a-home"><span className="footer-read-more">Back to Practice!</span></a>
 			</div>
 		)
 	}

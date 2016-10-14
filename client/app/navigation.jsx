@@ -15,12 +15,42 @@ class Navigation extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			url: ''
+		}
 	}
 
 	componentDidMount() {
+		this.getGithubName = this.getGithubName.bind(this);
+		this.transitionToProfile = this.transitionToProfile.bind(this);
+		this.getGithubName();
 	}
 
+	getGithubName() {
+	  // you'd use this to get the github id on the session
+	  $.ajax({
+	    method: 'GET',
+	    url: 'http://localhost:8080/auth/github_user',
+	    success: (data) => {
+	      var x = JSON.stringify(data);
+	      var userIndex = x.search(/username/) + 13;
+	      var profileIndex = x.search(/profileUrl/);
+	      var sliced = x.slice(userIndex,profileIndex);
+	      var slicedIndex = (/[\W]/g).exec(sliced);
+	      var final = sliced.slice(0, slicedIndex.index);
+	      this.setState({
+	        url: '/profile/' + final
+	      });
+	    },
+	    error: (jqXHR, textStatus, errorThrown) => {
+	      console.log(textStatus, errorThrown, jqXHR);
+	    }
+	  })
+	}
 
+	transitionToProfile () {
+		window.location = this.state.url;
+	}
 
 	render () { // we also need to build the nav bar on the right
 		return (
@@ -33,7 +63,7 @@ class Navigation extends React.Component {
 		  			<NavItem onClick={() => this.props.pairme()}>Pair Me</NavItem>
 					</Nav>
 					<Nav bsStyle="tabs" pullRight>
-						<NavItem pullRight>Profile Details</NavItem>
+						<NavItem onClick={() => this.transitionToProfile()}>Profile Details</NavItem>
 					</Nav>
 				</NavBar>
 		  </div>
