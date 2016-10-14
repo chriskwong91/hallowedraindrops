@@ -128,9 +128,10 @@ class Editor extends React.Component {
       url: 'http://localhost:8080/api/replservice/testcode',
       data: {code: this.state.text, name: this.state.current_question},
       success: (data) => {
+        console.log('getting data back from testing', data);
         var val = JSON.parse(data);
         if(val.failedTests.length === 0) {
-          // call another fn 
+          // call another fn
           this.analyzeCode();
         }
       },
@@ -302,14 +303,3 @@ class Editor extends React.Component {
 
 export default Editor;
 
-
-// <div id="page-content-wrapper">
-// 	<Grid>
-//   	<div className="home-editor">
-//   			<div id="editor" className="home-editor" onKeyUp={this.handleKeyPress.bind(this)}></div>
-//   	</Row>
-//   	<Row className="home-console">
-//   			<Output output={this.state.outputText} console={this.state.console}></Output>
-// 		</Row>
-// 	</Grid>
-// </div>
