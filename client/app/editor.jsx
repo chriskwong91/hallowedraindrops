@@ -31,7 +31,7 @@ class Editor extends React.Component {
       auth: false,
       console: null,
       current_question: '',
-      github: ''
+      github: '',
 	  };
 	}
 
@@ -128,17 +128,40 @@ class Editor extends React.Component {
       url: 'http://localhost:8080/api/replservice/testcode',
       data: {code: this.state.text, name: this.state.current_question},
       success: (data) => {
-        console.log('getting data back from testing', data);
-        var val = JSON.parse(data);
-        if(val.failedTests.length === 0) {
-          // call another fn
-          this.analyzeCode();
+        // var val = JSON.parse(data);
+        if (data.err) {
+          console.log(data.err);
+        } else {
+          this.socket.emit('append result', data, 'test');
         }
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus, errorThrown, jqXHR);
       }
     });
+  }
+
+  pasteConsole(data) {
+    data = JSON.parse(data);
+    var passed = data.passedTests;
+    var failed = data.failedTests;
+    var passes = passed.length;
+    var fails = failed.length;
+
+    if (!failed.length) {
+      this.analyzeCode();
+      var pass = 'All Tests Passed! \n Challenge has been added to the database';
+      this.state.console.Write(pass + '\n', 'my-output-class');
+    } else {
+      var fail = 'Oh No! ' + fails.toString() + ' out of ' + (passes + fails).toString() +  ' tests did not pass! \n\n';
+
+      failed.forEach((test) => {
+        fail += 'Test #' + test.order_counter.toString() + ' failed!\n';
+        fail += test.errs.message + "\n\n";
+      });
+      this.state.console.Write(fail + '\n', 'my-output-class');
+    }
+
   }
 
   pairMe() {
@@ -181,7 +204,10 @@ class Editor extends React.Component {
       }
     });
 
-    socket.on('alter result', (msg) => {
+    socket.on('alter result', (msg, test) => {
+      if (test === 'test') {
+        this.pasteConsole(msg);
+      } else {
       //2 and 3
       var finalMsg = msg.slice(2, msg.length);
       var finalMsg = finalMsg.substring(0, finalMsg.length - 3);
@@ -189,6 +215,7 @@ class Editor extends React.Component {
       // write into the output console
       // note that it's expecting a string
       this.state.console.Write(finalMsg + '\n', 'my-output-class');
+      }
     });
 
     return socket;
@@ -264,6 +291,8 @@ class Editor extends React.Component {
   }
 
 	render () {
+    var currentQ = this.state.current_question === '' ? <h3 className="panel-title">Editor</h3> :
+                    <h3 className="panel-title">Challenge Name : {this.state.current_question}</h3>
 
     return (
     	<div className="container-fluid">
@@ -274,7 +303,7 @@ class Editor extends React.Component {
             <div className="col-sm-12 col-md-6">
               <div className="panel">
                 <div className="panel-heading">
-                  <h3 className="panel-title">Editor</h3>
+                {currentQ}
                 </div>
                 <div className="panel-body">
                   <div id="editor" onKeyUp={this.handleKeyPress.bind(this)}> </div>

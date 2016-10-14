@@ -36,7 +36,7 @@ module.exports = {
         res.send(tests);
       })
       .catch((err) => {
-        console.error('Error in POST request to REPL service: ', err);
+        console.error('Error in POST request to Testing service: ', err);
         res.sendStatus(404, err);
       });
   },

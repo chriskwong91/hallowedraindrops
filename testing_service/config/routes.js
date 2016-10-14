@@ -24,6 +24,7 @@ module.exports = (app) => {
 
   app.route('/api/test')
     .post((req, res) => {
+    console.log('in api test');
       utils.testSuite(req, res);
     });
 };
