@@ -10,6 +10,7 @@ class HowItWorks extends React.Component {
 	render() {
 		return (
 			<div>
+				<NonCodeNavigation></NonCodeNavigation>
 				<div className="container how-header">
 					<span>So you want to join a Bootcamp?</span>
 				</div>
