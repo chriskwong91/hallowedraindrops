@@ -737,3 +737,8 @@ position:fixed;
     top: 400px;
 }
 
+/* Admin Challenge ScreenShot */
+.challengeSS {
+    width:100%;
+    height:500px;
+}

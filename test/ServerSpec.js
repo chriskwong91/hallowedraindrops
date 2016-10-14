@@ -25,7 +25,7 @@ describe('Server Side Specifications', function() {
     it('should respond to POST request for /api/replservice/runcode with a 200 status code', function(done) {
       var requestParams = {
         method: 'POST',
-        uri: 'http://127.0.0.1:8080/api/replservice/runcode',
+        uri: 'http://localhost:8080/api/replservice/runcode',
         json: {
           code: "console.log('hello world!')"
         }
@@ -39,7 +39,7 @@ describe('Server Side Specifications', function() {
     it('should respond with hello world ran through REPL', function(done) {
       var requestParams = {
         method: 'POST',
-        uri: 'http://127.0.0.1:8080/api/replservice/runcode',
+        uri: 'http://localhost:8080/api/replservice/runcode',
         json: {
           code: "console.log('hello world!')"
         }
