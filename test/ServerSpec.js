@@ -21,7 +21,7 @@ describe('Server Side Specifications', function() {
     if (webInstance) webInstance.close();
     if (replInstance) replInstance.close();
   });
-  // describe('Web Server', function() {
+  describe('Web Server', function() {
   //   it('should respond to POST request for /api/replservice/runcode with a 200 status code', function(done) {
   //     var requestParams = {
   //       method: 'POST',
