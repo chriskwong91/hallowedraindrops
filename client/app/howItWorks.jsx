@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Navigation from './navigation.jsx';
+// import Navigation from './navigation.jsx';
+import NonCodeNavigation from './NonCodeNavigation.jsx';
 
 
 class HowItWorks extends React.Component {
@@ -9,6 +10,7 @@ class HowItWorks extends React.Component {
 	render() {
 		return (
 			<div>
+				<NonCodeNavigation></NonCodeNavigation>
 				<div className="container how-header">
 					<span>So you want to join a Bootcamp?</span>
 				</div>

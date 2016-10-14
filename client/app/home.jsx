@@ -54,7 +54,7 @@ class Home extends React.Component {
 				</Jumbotron>
 
 				<div className="below-banner">
-					<span className="below-banner-text">preparing <b className="blue-you">you</b> for success</span>
+					<span className="below-banner-text">preparing <b className="blue-you">you</b> for camp</span>
 				</div>
 
 				<div className="home-bar">

@@ -11,7 +11,7 @@ import NavItem from 'react-bootstrap/lib/NavItem.js';
 
 var Promise = require('bluebird');
 
-class Navigation extends React.Component {
+class NonCodeNavigation extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -24,9 +24,13 @@ class Navigation extends React.Component {
 	componentDidMount() {
 		this.getGithubName = this.getGithubName.bind(this);
 		this.transitionToProfile = this.transitionToProfile.bind(this);
+		this.transitionToCode = this.transitionToCode.bind(this);
+		this.transitionToBlog = this.transitionToBlog.bind(this);
+
 		this.getGithubName();
 	}
 
+	// THIS IS BROKEN 
 	getGithubName() {
 	  // you'd use this to get the github id on the session
 	  $.ajax({
@@ -54,18 +58,24 @@ class Navigation extends React.Component {
 		window.location = this.state.url;
 	}
 
+	transitionToCode () {
+		window.location = '/';
+	}
+
+	transitionToBlog () {
+		window.location = '/blog';
+	}
+
 	render () { // we also need to build the nav bar on the right
 		return (
 		  <div>
 		  	<NavBar fixedTop fluid staticTop>
 		  		<Nav bsStyle="tabs" pullLeft>
-		  			<NavItem onClick={() => this.props.sidebar() }>Prep-Challenges</NavItem>
-		  			<NavItem onClick={() => this.props.sendcode()}>Run Code</NavItem>
-		  			<NavItem onClick={() => this.props.testcode()}>Submit Code</NavItem>
-		  			<NavItem onClick={() => this.props.pairme()}>Pair Me</NavItem>
+		  			<NavItem onClick={() => this.transitionToCode() }>Back to Coding</NavItem>
 					</Nav>
 					<Nav bsStyle="tabs" pullRight>
-						<NavItem onClick={() => this.transitionToProfile()}>{this.state.name}</NavItem>
+		  			<NavItem onClick={() => this.transitionToBlog() }>Read Our Blog</NavItem>
+						<NavItem onClick={() => this.transitionToProfile() }>{this.state.name}</NavItem>
 					</Nav>
 				</NavBar>
 		  </div>
@@ -73,4 +83,4 @@ class Navigation extends React.Component {
 	}
 }
 
-export default Navigation;
+export default NonCodeNavigation;

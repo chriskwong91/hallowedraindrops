@@ -30,9 +30,10 @@ class Editor extends React.Component {
       question: '',
       auth: false,
       console: null,
-      current_question: ''
-    };
-  }
+      current_question: '',
+      github: ''
+	  };
+	}
 
   componentDidMount() {
     this.editor = this.editorSetup();
@@ -48,6 +49,11 @@ class Editor extends React.Component {
     this.pairMe = this.pairMe.bind(this);
     this.sidebar();
     this.startConsole();
+
+    this.getGithubName = this.getGithubName.bind(this);
+    this.analyzeCode = this.analyzeCode.bind(this);
+
+    this.getGithubName();
 
     // reset the container to 0
     $('.container').css("margin", 0);
@@ -69,15 +75,51 @@ class Editor extends React.Component {
       url: 'http://localhost:8080/api/replservice/runcode',
       data: {code: this.state.text},
       success: (data) => {
-        console.log('data value is: ', data);
         this.socket.emit('append result', data);
         // $('.response').append(data);
-        console.log('after socket');
+        // console.log('after socket');
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus, errorThrown, jqXHR);
       }
     });
+  }
+
+  getGithubName() {
+    // you'd use this to get the github id on the session
+    $.ajax({
+      method: 'GET',
+      url: 'http://localhost:8080/auth/github_user',
+      success: (data) => {
+        var x = JSON.stringify(data);
+        var userIndex = x.search(/username/) + 13;
+        var profileIndex = x.search(/profileUrl/);
+        var sliced = x.slice(userIndex,profileIndex);
+        var slicedIndex = (/[\W]/g).exec(sliced);
+        var final = sliced.slice(0, slicedIndex.index);
+        this.setState({
+          github: final
+        });
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    })
+
+  }
+
+  analyzeCode() {
+    $.ajax({
+      method: 'POST',
+      data: {code: this.state.text },
+      url: 'http://localhost:4000/api/analytics/' + this.state.github + '/' + this.state.current_question,
+      success: (data) => {
+        // console.log('success in sending to analytics');
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+        console.log(textStatus, errorThrown, jqXHR);
+      }
+    })
   }
 
   testCode() {
@@ -86,7 +128,11 @@ class Editor extends React.Component {
       url: 'http://localhost:8080/api/replservice/testcode',
       data: {code: this.state.text, name: this.state.current_question},
       success: (data) => {
-        console.log('data is: ', data);
+        var val = JSON.parse(data);
+        if(val.failedTests.length === 0) {
+          // call another fn 
+          this.analyzeCode();
+        }
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus, errorThrown, jqXHR);
@@ -95,7 +141,7 @@ class Editor extends React.Component {
   }
 
   pairMe() {
-    console.log('pairme');
+    // console.log('pairme');
     main_socket.emit('message', {
       client_id: client_id
     });

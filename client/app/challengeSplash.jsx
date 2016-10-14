@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import store from './store/index.js';
 
 import Navigation from './navigation.jsx';
+import NonCodeNavigation from './NonCodeNavigation.jsx';
 
 class ChallengeSplash extends React.Component {
 
@@ -15,7 +16,7 @@ class ChallengeSplash extends React.Component {
 		console.log(store.getState());
 		return (
 			<div>
-				<Navigation> </Navigation>
+				<NonCodeNavigation> </NonCodeNavigation>
 				<div className="jumbotron challenge-splash-jumbo">
 					<h1 className=".blog-selection-header">Become a Test Master.</h1>
 				</div>

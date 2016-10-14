@@ -19,7 +19,7 @@ const db = require('./database/db.js');
 // })
 
 
-var port = process.argv[2] || 1337; 
+var port = process.argv[2] || 4000; 
 if(!module.parent) {
 	app.listen(port, () => {
 		console.log('Analytics Server listening on port' + port + '!');

@@ -18,12 +18,12 @@ var User = require('../../database/models/Users.js');
 module.exports = {
 
 	getGithubUser: (req, res) => {
-		var user = req.url;
-		console.log('value for user is: ', user);
-		// User.find({}).then((data) => {
-		// 	console.log('found all github-user information');
-		// 	res.status(200).send(data);
-		// });
+		var login = req.url.slice(11, req.url.length);
+
+		User.find({login: login}).then((data) => {
+			console.log('found all github-user information');
+			res.status(200).send(data);
+		});
 	},
 
 	getAllGithub: (req, res) => {

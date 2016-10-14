@@ -3,22 +3,38 @@
 
 var Readability = require('../../database/models/readability.js');
 
-module.exports = (data, username, question) => {
-	Readability.sync().then(() => {
-		return Readability.find({where:{U_ID: username, Q_ID: question}})
-			.then((entry) => {
-				console.log('entry value is: ', entry); // if no entry
-				if(!entry) {
-					// if it's not already created, create
-					Readability.create(data);
-						// .then((q) => callback(q));
-					// not sure about q
-				} else {
-					// update old entry to the newer one
-					Readability.update(data, {where: {U_ID: username, Q_ID: question}});
-						// .then((q) => callback(q));
-				}
-			// callback(data);
+module.exports = {
+
+	addToDb: (data, username, question) => {
+		Readability.sync().then(() => {
+			return Readability.find({where:{U_ID: username, Q_ID: question}})
+				.then((entry) => {
+					console.log('entry value is: ', entry); // if no entry
+					if(!entry) {
+						// if it's not already created, create
+						Readability.create(data);
+							// .then((q) => callback(q));
+						// not sure about q
+					} else {
+						// update old entry to the newer one
+						Readability.update(data, {where: {U_ID: username, Q_ID: question}});
+							// .then((q) => callback(q));
+					}
+				// callback(data);
+			});
 		});
-	});
+	},
+
+	getFromDb: (req, res, username) => {
+		Readability.sync().then(() => {
+			return Readability.find({where: {U_ID: username}}).then((item) => {
+				if(!item) {
+					res.status(404).send('Question not found');
+				} else {
+					console.log('value for item is:', item);
+					res.send(item); // sends back data
+				}
+			})
+		});
+	}
 }
