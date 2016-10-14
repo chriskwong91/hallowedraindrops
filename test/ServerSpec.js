@@ -21,36 +21,36 @@ describe('Server Side Specifications', function() {
     if (webInstance) webInstance.close();
     if (replInstance) replInstance.close();
   });
-  describe('Web Server', function() {
-    it('should respond to POST request for /api/replservice/runcode with a 200 status code', function(done) {
-      var requestParams = {
-        method: 'POST',
-        uri: 'http://localhost:8080/api/replservice/runcode',
-        json: {
-          code: "console.log('hello world!')"
-        }
-      };
-      request(requestParams, function(error, response, body) {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-    });
+  // describe('Web Server', function() {
+  //   it('should respond to POST request for /api/replservice/runcode with a 200 status code', function(done) {
+  //     var requestParams = {
+  //       method: 'POST',
+  //       uri: 'http://localhost:8080/api/replservice/runcode',
+  //       json: {
+  //         code: "console.log('hello world!')"
+  //       }
+  //     };
+  //     request(requestParams, function(error, response, body) {
+  //       expect(response.statusCode).to.equal(200);
+  //       done();
+  //     });
+  //   });
 
-    it('should respond with hello world ran through REPL', function(done) {
-      var requestParams = {
-        method: 'POST',
-        uri: 'http://localhost:8080/api/replservice/runcode',
-        json: {
-          code: "console.log('hello world!')"
-        }
-      };
-      request(requestParams, function(error, response, body) {
-        var output = body;
-        expect(body).to.equal('> hello world!\n> ');
-        expect(body).to.be.an('string');
-        done();
-      });
-    });
+  //   it('should respond with hello world ran through REPL', function(done) {
+  //     var requestParams = {
+  //       method: 'POST',
+  //       uri: 'http://localhost:8080/api/replservice/runcode',
+  //       json: {
+  //         code: "console.log('hello world!')"
+  //       }
+  //     };
+  //     request(requestParams, function(error, response, body) {
+  //       var output = body;
+  //       expect(body).to.equal('> hello world!\n> ');
+  //       expect(body).to.be.an('string');
+  //       done();
+  //     });
+  //   });
 
     it('Should 404 when asked for a nonexistent endpoint', function(done) {
       request('http://localhost:8080/pizza', function(error, response, body) {
