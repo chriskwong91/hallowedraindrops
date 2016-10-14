@@ -18,7 +18,9 @@ module.exports = (app) => {
       console.log(req.body);
       runCode(req.body.code, req.path, (data) => {
         console.log('data', data);
-        res.send(data);
+        if (!res.headerSent) {
+          res.send(data);
+        }
       });
     });
 };
