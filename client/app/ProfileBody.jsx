@@ -31,6 +31,12 @@ class ProfileBody extends React.Component {
 		if(val === null) {
 			return 0; // set the value displayed to be 0
 		} else {
+			if(val % 1 !== 0) {
+				var str = val.toString();
+				str = str.slice(0, 5);
+				return str;
+			}
+			
 			return val; // else return the value
 		}
 	}

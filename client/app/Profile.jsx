@@ -31,7 +31,7 @@ class Profile extends React.Component {
 		this.getUserAnalytics = this.getUserAnalytics.bind(this);
 		this.getUrl = this.getUrl.bind(this);
 		this.getGithub = this.getGithub.bind(this);
-		
+
 		this.getUrl();
 
 		setTimeout(() => {
@@ -153,7 +153,7 @@ class Profile extends React.Component {
 			<div> 
 				<Navigation></Navigation>
 				<div>
-					<ProfileHeader github={this.state.github} problems={this.state.javascript}></ProfileHeader>
+					<ProfileHeader github={this.state.github} analytics={this.state.getUserAnalytics}></ProfileHeader>
 				</div>
 				<ProfileBody javascript={this.state.javascript} general={this.state.general} functionality={this.state.functionality} readability={this.state.readability} ></ProfileBody>
 				<ProfileFooter></ProfileFooter>
