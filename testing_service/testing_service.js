@@ -9,7 +9,7 @@ require('./config/middleware.js')(app, express);
 require('./config/routes.js')(app);
 
 // set port up
-var port = process.argv[2] || 1337;
+var port = process.env.PORT || 1337;
 if (!module.parent) {
   app.listen(port, function () {
     console.log('Web Server listening on port ' + port +' !');

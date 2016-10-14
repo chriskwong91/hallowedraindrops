@@ -22,7 +22,7 @@ app.use('/api/replservice', replRouter);
 app.use('/admin', adminRouter);
 app.use('/api/blog', blogRouter);
 
-const port = process.argv[2] || 8080;
+const port = process.env.PORT || 8080;
 const server = require('http').Server(app);
 if(!module.parent) {
   server.listen(port, () => {
