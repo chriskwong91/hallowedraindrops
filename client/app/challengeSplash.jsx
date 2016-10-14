@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import Navigation from './navigation.jsx';
+import NonCodeNavigation from './NonCodeNavigation.jsx';
 
 class ChallengeSplash extends React.Component {
 
@@ -12,7 +13,7 @@ class ChallengeSplash extends React.Component {
 	render() {
 		return (
 			<div>
-				<Navigation> </Navigation>
+				<NonCodeNavigation> </NonCodeNavigation>
 				<div className="jumbotron challenge-splash-jumbo">
 					<h1 className=".blog-selection-header">Become a Test Master.</h1>
 				</div>

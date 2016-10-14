@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Navigation from './navigation.jsx';
+// import Navigation from './navigation.jsx';
+import NonCodeNavigation from './NonCodeNavigation.jsx';
 
 
 class HowItWorks extends React.Component {
