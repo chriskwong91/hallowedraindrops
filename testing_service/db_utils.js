@@ -17,12 +17,12 @@ var It = function(it) {
 
 module.exports = {
   newTest: function (req, res) {
-    console.log(req.body);
     var question_name = req.body.name,
         itsArr = _.map(req.body.arr, (item) => {
           var newIt = new It({
             snippet: item.snippet,
             method: item.method,
+            description: item.description,
             ans: item.answer
           });
           return newIt;
@@ -56,14 +56,6 @@ module.exports = {
             });
           }
         });
-        // test.save((err, newTest) => {
-        //   if (err) {
-        //     res.status(500).json({ error: err });
-        //   } else {
-        //     console.log('New test added to db: ' , newTest);
-        //     res.json(tests);
-        //   }
-        // });
       } else {
         res.json(tests);
       }
