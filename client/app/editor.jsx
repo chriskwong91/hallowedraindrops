@@ -237,7 +237,7 @@ class Editor extends React.Component {
             <div className="col-sm-12 col-md-6">
               <div className="panel">
                 <div className="panel-heading">
-                  <h3 className="panel-title">Editor</h3>
+                  <h3 className="panel-title">Console</h3>
                 </div>
 
                 <div className="panel-body">
