@@ -60,7 +60,6 @@ class ChallengePrompt extends React.Component{
     // let code to be pasted
     setTimeout(function () {
       var code = this.refs.textarea.value;
-      console.log(JSON.stringify(code));
       store.dispatch(challengePrompt(code));
 
       this.setState({

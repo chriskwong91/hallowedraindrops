@@ -57,9 +57,7 @@ class ChallengeTechnical extends React.Component {
   }
 
   handleSubmit(){
-    console.log('submitting');
     if (this.state.testsPassed) {
-      console.log('trying to push tor browserhistory');
       window.location.assign("/challenge/submit");
     } else {
       this.runTests();
