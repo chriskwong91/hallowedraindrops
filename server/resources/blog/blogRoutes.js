@@ -28,7 +28,6 @@ blogRouter.route('/getallgithub')
 
 blogRouter.route('/getgithub/:githubuser')
 	.get((req, res, next) => {
-		console.log('req.url value is: ', req.url);
 		blogController.getGithubUser(req, res);
 	});
 
