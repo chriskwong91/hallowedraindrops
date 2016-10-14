@@ -8,10 +8,10 @@ const addToCached = require('./routes.js').addToCached;
 module.exports = {
 
   run: 'https://floating-sierra-53807.herokuapp.com/api/repl',
-  suite: 'http://localhost:1337/api/test',
-  // suite: 'https://warm-temple-20798.herokuapp.com/api/test',
-  // testing: 'https://warm-temple-20798.herokuapp.com/db/test',
-  testing: 'http://localhost:1337/db/test',
+  // suite: 'http://localhost:1337/api/test',
+  suite: 'https://warm-temple-20798.herokuapp.com/api/test',
+  testing: 'https://warm-temple-20798.herokuapp.com/db/test',
+  // testing: 'http://localhost:1337/db/test',
   REPL: 'https://floating-sierra-53807.herokuapp.com/api/repl',
   Analytics: 'http://localhost:1337/api/analytics',
 
