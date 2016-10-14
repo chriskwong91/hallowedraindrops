@@ -4,6 +4,7 @@ var service = require('../../config/services.js');
 
 module.exports = {
   sendCodeToService: (req, res) => {
+    console.log('req.body', req.body)
     var options = {
       method: 'POST',
       uri: service.run,

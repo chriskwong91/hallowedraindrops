@@ -16,9 +16,10 @@ module.exports = {
     console.log('created namespace');
   	var nsp = io.of(path);
   	nsp.on('connection', (socket) => {
-  	  console.log('a user has connected');
+  	  console.log('a user has connected', path);
 
   	  socket.on('text change', (msg) => {
+        console.log('msg', msg);
   	    nsp.emit('alter text', msg);
   	  });
 
@@ -36,7 +37,6 @@ module.exports = {
     var context = this;
     io.on('connection', function(socket){
       socket.on('message', function(obj){
-        console.log('hello')
         if (!active_cache[obj.client_id]){
           waiting_queue.push(obj.client_id);
           active_cache[obj.client_id] = true;

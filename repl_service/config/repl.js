@@ -18,7 +18,7 @@ module.exports = {
       * @desc Push to-be-evaluated code to readable stream, ready by REPL.
       */
     var input = new stream.Readable();
-    console.log(code);
+    console.log('code', code);
     input._read = function noop() {
       input.push(code);
       input.push(null);
