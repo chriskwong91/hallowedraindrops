@@ -2,6 +2,8 @@
 const repl = require('repl');
 const net = require('net');
 const stream = require('stream');
+const util = require('util');
+const vm = require('vm');
 
 var connections = 0;
 
@@ -13,6 +15,8 @@ module.exports = {
     * @returns {nothing}
     */
   runCode: (code, path, callback) => {
+
+    var done = false;
     //sanitize the repl input
     var codeSanitized = code.split('\n').map((section) => {
       var trimmed = section.trim();
@@ -21,7 +25,7 @@ module.exports = {
         return trimmed.slice(1);
       }
       return section;
-    }).join('/n');
+    }).join('\n');
 
     console.log('code sant', codeSanitized);
 
@@ -67,7 +71,32 @@ module.exports = {
       * @param {input, output} readable and writable streams
       * @returns {nothing}
       */
-    var server = repl.start({input: input, output:output, terminal: false, ignoreUndefined: true});
+      var server = repl.start({input: input, output:output, terminal: false, ignoreUndefined: true});
+      server.on('exit', () => {
+        console.log('Received "exit" event from repl!');
+        data = data.replace(/(\.)+/g, '');
+        data = data.replace(/( \>)+/g, "> ");
+        callback(data);
+      });
+
+    // var server;
+    // var thing;
+    // var error = false;
+
+    // setTimeout(() => {
+    //   console.log('stuck');
+    //   callback('Program exceeded time limit of 3000ms!');
+    //   error = true;
+    // }, 1000);
+
+    // try {
+    //   thing = vm.runInThisContext(codeSanitized);
+    // } finally {
+    //     console.log(thing);
+    //     clearTimeout(time);
+
+    //       error = false;
+    // }
 
     // function initializeContext(context, path) {
     //   _.extend(context, cache[path]);
@@ -75,12 +104,7 @@ module.exports = {
 
     // Returns data to the callback once REPL is done with code
     // Will not respond with data to client-side if callback is removed.
-    server.on('exit', () => {
-      console.log('Received "exit" event from repl!');
-      data = data.replace(/(\.)+/g, '');
-      data = data.replace(/( \>)+/g, "> ");
-      callback(data);
-    });
+
 
     // initializeContext(server.context, path);
     // server.on('reset', initializeContext);
