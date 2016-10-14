@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Navigation from './navigation.jsx'
+import NonCodeNavigation from './nonCodeNavigation.jsx'
 import ProfileHeader from './ProfileHeader.jsx';
 import ProfileBody from './ProfileBody.jsx';
 
@@ -151,7 +151,7 @@ class Profile extends React.Component {
 	render() {
 		return (
 			<div> 
-				<Navigation></Navigation>
+				<NonCodeNavigation></NonCodeNavigation>
 				<div>
 					<ProfileHeader github={this.state.github} analytics={this.state.getUserAnalytics}></ProfileHeader>
 				</div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BlogNavigation from './blog-navigation.jsx';
+// import BlogNavigation from './blog-navigation.jsx';
+import NonCodeNavigation from '../nonCodeNavigation.jsx';
 
 // react-router elements
 import { Link } from 'react-router';
@@ -108,7 +109,7 @@ class Blog extends React.Component {
 		// console.log(this.state.allGithub[0][avatar_url]);
 		return (
 			<div className="blog-page">
-				<BlogNavigation></BlogNavigation>
+				<NonCodeNavigation></NonCodeNavigation>
 					<Jumbotron className="banner-blog"></Jumbotron>
 					<h1 className="banner-text-blog">BootCamp Reviews</h1>
 						<Grid>
