@@ -1,6 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import Navigation from './navigation.jsx'
+import ProfileHeader from './ProfileHeader.jsx';
+import ProfileBody from './ProfileBody.jsx';
+
+import ProfileFooter from './ProfileFooter.jsx';
+
+
 class Profile extends React.Component {
 
 	constructor(props) {
@@ -10,7 +17,8 @@ class Profile extends React.Component {
 			javascript: [], // items below here are in regards to analytics
 			functionality: [],
 			general: [],
-			readability: []
+			readability: [],
+			user: ''
 		}
 
 	}
@@ -19,41 +27,66 @@ class Profile extends React.Component {
 	// the users' name will be on the url
 
 	componentDidMount() {
-		this.getGithubName = this.getGithubName.bind(this);
+		// this.getGithubName = this.getGithubName.bind(this);
 		this.getUserAnalytics = this.getUserAnalytics.bind(this);
+		this.getUrl = this.getUrl.bind(this);
+		this.getGithub = this.getGithub.bind(this);
+		
+		this.getUrl();
 
-		this.getGithubName();
-		console.log('github name valu eis: ', this.state.github);
-
-		// This will need to change as well
 		setTimeout(() => {
 			this.getUserAnalytics();
 		}, 500)
 	}
 
 	// this is copied over from editor.jsx -- so code isn't dry here
-	getGithubName() {
+	// getGithubName() {
 	  // you'd use this to get the github id on the session
-	  $.ajax({
-	    method: 'GET',
-	    url: 'http://localhost:8080/auth/github_user',
-	    success: (data) => {
-	    	console.log('data value is:', data);
-	      var x = JSON.stringify(data);
-	      var userIndex = x.search(/username/) + 13;
-	      var profileIndex = x.search(/profileUrl/);
-	      var sliced = x.slice(userIndex,profileIndex);
-	      var slicedIndex = (/[\W]/g).exec(sliced);
-	      var final = sliced.slice(0, slicedIndex.index);
-	      this.setState({
-	        github: final
-	      });
-	      console.log('value for tgithub is: ', this.state.github);
-	    },
-	    error: (jqXHR, textStatus, errorThrown) => {
-	      console.log(textStatus, errorThrown, jqXHR);
-	    }
-	  })
+	//   $.ajax({
+	//     method: 'GET',
+	//     url: 'http://localhost:8080/auth/github_user',
+	//     success: (data) => {
+	//     	console.log('data value is:', data);
+	//       var x = JSON.stringify(data);
+	//       var userIndex = x.search(/username/) + 13;
+	//       var profileIndex = x.search(/profileUrl/);
+	//       var sliced = x.slice(userIndex,profileIndex);
+	//       var slicedIndex = (/[\W]/g).exec(sliced);
+	//       var final = sliced.slice(0, slicedIndex.index);
+	//       this.setState({
+	//         github: final
+	//       });
+	//       console.log('value for tgithub is: ', this.state.github);
+	//     },
+	//     error: (jqXHR, textStatus, errorThrown) => {
+	//       console.log(textStatus, errorThrown, jqXHR);
+	//     }
+	//   })
+	// }
+
+	getUrl() {
+		var url = window.location.pathname.slice(9, window.location.pathname.length);
+		setTimeout(() => {
+			this.setState({
+				user: url
+			});
+			this.getGithub();
+		}, 100)
+	}
+
+	getGithub() {
+		$.ajax({
+			method: 'GET',
+			url: 'http://localhost:8080/api/blog/getgithub/' + this.state.user,
+			success: (data) => {
+				this.setState({
+					github: data
+				});
+			},
+			error: (jqXHR, textStatus, errorThrown) => {
+				console.log(textStatus, errorThrown, jqXHR);
+			}
+		});
 	}
 
 	getUserAnalytics() {
@@ -62,11 +95,10 @@ class Profile extends React.Component {
 		// can be coded better
 		$.ajax({
 			method: 'GET',
-			url: 'http://localhost:4000/api/analytics/' +  this.state.github + '/javascript',
+			url: 'http://localhost:4000/api/analytics/' +  this.state.user + '/javascript',
 			success: (data) => {
-				console.log('data gotten back from analytics is: ', data);
 				this.setState({
-					javascript: data
+					javascript: this.state.javascript.push(data)
 				})
 			},
 			error: (jqXHR, textStatus, errorThrown) => {
@@ -76,11 +108,10 @@ class Profile extends React.Component {
 
 		$.ajax({
 			method: 'GET',
-			url: 'http://localhost:4000/api/analytics/' +  this.state.github + '/general',
+			url: 'http://localhost:4000/api/analytics/' +  this.state.user + '/general',
 			success: (data) => {
-				console.log('data gotten back from analytics is: ', data);
 				this.setState({
-					general: data
+					general: this.state.general.push(data)
 				})
 			},
 			error: (jqXHR, textStatus, errorThrown) => {
@@ -90,11 +121,10 @@ class Profile extends React.Component {
 
 		$.ajax({
 			method: 'GET',
-			url: 'http://localhost:4000/api/analytics/' +  this.state.github + '/functionality',
+			url: 'http://localhost:4000/api/analytics/' +  this.state.user + '/functionality',
 			success: (data) => {
-				console.log('data gotten back from analytics is: ', data);
 				this.setState({
-					functionality: data
+					functionality: this.state.functionality.push(data)
 				})
 			},
 			error: (jqXHR, textStatus, errorThrown) => {
@@ -104,11 +134,10 @@ class Profile extends React.Component {
 
 		$.ajax({
 			method: 'GET',
-			url: 'http://localhost:4000/api/analytics/' +  this.state.github + '/readability',
+			url: 'http://localhost:4000/api/analytics/' +  this.state.user + '/readability',
 			success: (data) => {
-				console.log('data gotten back from analytics is: ', data);
 				this.setState({
-					readability: data
+					readability: this.state.readability.push(data)
 				})
 			},
 			error: (jqXHR, textStatus, errorThrown) => {
@@ -117,10 +146,17 @@ class Profile extends React.Component {
 		});
 	}
 
+
+	/* for the ProfileHeader, we only need to pass one of the 4 tables down to get the problems the user completed */
 	render() {
 		return (
-			<div>
-				Hello World
+			<div> 
+				<Navigation></Navigation>
+				<div>
+					<ProfileHeader github={this.state.github} problems={this.state.javascript}></ProfileHeader>
+				</div>
+				<ProfileBody javascript={this.state.javascript} general={this.state.general} functionality={this.state.functionality} readability={this.state.readability} ></ProfileBody>
+				<ProfileFooter></ProfileFooter>
 			</div>
 
 		)
