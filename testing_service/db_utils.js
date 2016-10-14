@@ -41,16 +41,32 @@ module.exports = {
 
     utils.newTest(req, res, test, (pass, tests) => {
       if (pass) {
-        test.save((err, newTest) => {
+        Test.findOne({question_name: req.body.name}).exec((err, found) => {
           if (err) {
             res.status(500).json({ error: err });
           }
-
-          console.log('New test added to db: ' , newTest);
-          res.json(tests);
+          if (found) {
+            found.question_name = req.body.name;
+            found.dArr = JSON.stringify(dArr);
+            res.json(tests);
+          } else {
+            test.save((err, newTest) => {
+              console.log('New test added to db: ' , newTest);
+              res.json(tests);
+            });
+          }
         });
+        // test.save((err, newTest) => {
+        //   if (err) {
+        //     res.status(500).json({ error: err });
+        //   } else {
+        //     console.log('New test added to db: ' , newTest);
+        //     res.json(tests);
+        //   }
+        // });
+      } else {
+        res.json(tests);
       }
-      res.json(tests);
     });
 
   },

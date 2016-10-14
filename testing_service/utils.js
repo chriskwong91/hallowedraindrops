@@ -92,7 +92,11 @@ module.exports = {
             passedTests: passedTests,
             failedTests: failedTests
           });
-          callback(null, tests);
+          if (failedTests.length) {
+            callback(false, tests);
+          } else {
+            callback(true, tests);
+          }
           passedTests = [];
           failedTests = [];
           triggered = true;
