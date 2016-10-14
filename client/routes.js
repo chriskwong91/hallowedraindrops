@@ -21,6 +21,7 @@ import BlogCreator from './app/blog-component/blog-creator/blog-creator.jsx';
 import ChallengeSplash from './app/challengeSplash.jsx';
 import ChallengeInfo from './app/components/ChallengeInfo.jsx';
 import ChallengeTechnical from './app/components/ChallengeTechnical.jsx';
+import ChallengeSubmit from './app/components/ChallengeSubmit.jsx';
 
 import How from './app/howItWorks.jsx';
 
@@ -46,6 +47,7 @@ export default <Route path="/" component={App}>
       <Route path ="/challenge/splash" component = {ChallengeSplash} />
       <Route path ="/challenge/info" component = {ChallengeInfo} />
       <Route path ="/challenge/technical" component = {ChallengeTechnical} />
+      <Route path ="/challenge/submit" component = {ChallengeSubmit} />
      <Route path ="*" component={NoMatch}/>
    </Route>
 

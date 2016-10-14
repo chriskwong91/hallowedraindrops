@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from './exampleModal.jsx'
 import {Link} from 'react-router'
+import {browserHistory} from 'react-router'
 
 //Other Components
 import Navigation from '../Admin/AdminNavigation.jsx';
@@ -12,18 +13,26 @@ import Console from '../output.jsx';
 import store from '../store/index';
 let state = store.getState;
 
+
 class ChallengeTechnical extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
-      console: null
+      console: null,
+      testsPassed: false,
+    }
+
+    this.contextTypes = {
+      router: React.PropTypes.object.isRequired
     }
   }
 
   componentDidMount() {
     this.startConsole();
   }
+
   startConsole () {
     // move jqconsole out
     var jqconsole = $('#challenge-console').jqconsole('\n', '>>>');
@@ -47,7 +56,17 @@ class ChallengeTechnical extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(){
+    console.log('submitting');
+    if (this.state.testsPassed) {
+      console.log('trying to push tor browserhistory');
+      window.location.assign("/challenge/submit");
+    } else {
+      this.runTests();
+    }
+  }
+
+  runTests() {
     var question = {
       name: state().newChallenge.challengeTitle,
       difficulty: state().newChallenge.challengeDifficulty,
@@ -85,7 +104,14 @@ class ChallengeTechnical extends React.Component {
     if (!failed.length) {
       var pass = 'All Tests Passed! \n Challenge has been added to the database';
       this.state.console.Write(pass + '\n', 'my-output-class');
+      this.setState({
+        testsPassed: true
+      });
     } else {
+      this.setState({
+        testsPassed: false
+      });
+
       var fail = 'Oh No! ' + fails.toString() + ' out of ' + (passes + fails).toString() +  ' tests did not pass! \n\n';
 
       failed.forEach((test) => {
@@ -113,6 +139,9 @@ class ChallengeTechnical extends React.Component {
           <div classNAme='row'>
             <label htmlFor="comment" className='challenge-label'>Challenge Answer Code: </label>
             <ChallengeAnswer />
+            <button onClick={this.runTests.bind(this)} type="button" className="btn btn-default row">
+              <span className='glyphicon glyphicon-play'></span>Run Tests
+            </button>
           </div>
           <div className='console-container row'>
             <div id='challenge-console' className='challenge-console'></div>

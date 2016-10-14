@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router';
+import store from './store/index.js';
 
 import Navigation from './navigation.jsx';
 
@@ -11,6 +12,7 @@ class ChallengeSplash extends React.Component {
 	// Notes:
 	// <p> Devise complex challenges that'll reign supreme among the Community.</p>
 	render() {
+		console.log(store.getState());
 		return (
 			<div>
 				<Navigation> </Navigation>
